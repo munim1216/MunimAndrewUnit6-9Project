@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
             delta += (double) (currentTime - previousTime) / drawInterval;
 
             previousTime = currentTime;
-            if (delta >= 0.5) {
+            if (delta >= 1) {
                 // delta being 1 or greater means 1/60 of a second;
                 repaint();
                 if (keyH.isUpKeyPressed()) {
