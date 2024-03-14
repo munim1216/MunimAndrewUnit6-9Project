@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f758cf9e-8d4f-414c-a1d7-aa8b74c62375" name="Changes" comment="renamed project">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f758cf9e-8d4f-414c-a1d7-aa8b74c62375" name="Changes" comment="INITIAL COMMIT, trying to salvage code from Renee's World">
+      <change afterPath="$PROJECT_DIR$/src/level/Tile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,16 +69,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "andrew-branch",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/owner/IdeaProjects/Ali2DGameProject",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+    "git-widget-placeholder": "munim-branch",
+    "last_opened_file_path": "C:/Users/owner/IdeaProjects/Ali2DGameProject"
   }
 }]]></component>
   <component name="RunManager">
