@@ -21,9 +21,30 @@ public class TileManager {
         }
     }
     public void draw(Graphics2D g2D) {
-        g2D.drawImage(one, 20, 20, 48, 48,null);
-        g2D.drawImage(two, 60, 60, 48, 48, null);
-        g2D.drawImage(three, 200, 200, 48, 48, null);
+
+        int x = 0;
+        int y = 0;
+
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 16; i++) {
+                g2D.drawImage(one, x + (i * 48), y, 48, 48, null);
+            }
+            y += 144;
+        }
+        y = 48;
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 16; i++) {
+                g2D.drawImage(two, x + (i * 48), y, 48, 48, null);
+            }
+            y += 144;
+        }
+        y = 48 * 2;
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 16; i++) {
+                g2D.drawImage(three, x + (i * 48), y, 48, 48, null);
+            }
+            y += 144;
+        }
     }
 
 }
