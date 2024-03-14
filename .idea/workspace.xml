@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f758cf9e-8d4f-414c-a1d7-aa8b74c62375" name="Changes" comment="INITIAL COMMIT, trying to salvage code from Renee's World">
-      <change afterPath="$PROJECT_DIR$/src/level/Tile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/TEST1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/TEST2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/TEST3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/level/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/level/TileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,9 +46,17 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "munim-branch",
-    "last_opened_file_path": "C:/Users/owner/IdeaProjects/Ali2DGameProject"
+    "last_opened_file_path": "C:/Users/owner/IdeaProjects/Ali2DGameProject",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\munim\IdeaProjects\MunimAndrewUnit6-9Project\resources" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="GamePanelRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.GamePanelRunner" />
