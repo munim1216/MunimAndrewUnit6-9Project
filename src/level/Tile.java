@@ -11,4 +11,16 @@ public class Tile {
         sprite = image;
         this.typeOfTile = typeOfTile;
     }
+
+    public BufferedImage getSprite() {
+        return sprite;
+    }
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public TileType getTypeOfTile() {
+        return typeOfTile;
+    }
 }

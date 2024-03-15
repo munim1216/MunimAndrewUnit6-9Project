@@ -9,37 +9,40 @@ public class TileManager {
     private Tile[][] currentMap;
     // TEST SPRITES
     private BufferedImage one, two, three;
-
+    private boolean isReady;
     public TileManager() {
         currentMap = new Tile[16][12];
+        isReady = false;
         try {
-            one = ImageIO.read(new File("resources/TEST1.png"));
-            two = ImageIO.read(new File("resources/TEST2.png"));
-            three = ImageIO.read(new File("resources/TEST3.png"));
+            one = ImageIO.read(new File("resources/tiles/TEST1.png"));
+            two = ImageIO.read(new File("resources/tiles/TEST2.png"));
+            three = ImageIO.read(new File("resources/tiles/TEST3.png"));
             importMap("resources/maps/testmap");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public void draw(Graphics2D g2D) {
-        for (int y = 0; y < 12; y += 48) {
-            for (int x = 0; x < 16; x += 48) {
-                g2D
+        if (currentMap != null) {
+            for (int y = 0; y < 16; y++) {
+                for (int x = 0; x < 12; x++) {
+                    g2D.drawImage(currentMap[y][x].getSprite(), x * 48, y * 48, 48, 48, null);
+                }
             }
         }
     }
 
     private void importMap(String path) {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            br.readLine();
             String nextLine = br.readLine();
             int nextRow = 0;
             while (nextLine != null) {
-                nextLine = br.readLine();
                 String[] values = nextLine.split(",");
-                for (int i = 0; i < values.length; i++) {
+                for (int nextCol = 0; nextCol < values.length; nextCol++) {
                     BufferedImage sprite = null;
                     TileType type = null;
-                    switch (values[i]) {
+                    switch (values[nextCol]) {
                         case "0" -> {
                             sprite = one;
                             type = TileType.TEST1;
@@ -53,13 +56,26 @@ public class TileManager {
                             type = TileType.TEST3;
                         }
                     }
-
-                    currentMap[nextRow][i] = new Tile(sprite, type);
+                    System.out.println("ACCESSBILE");
+                    currentMap[nextRow][nextCol] = new Tile(sprite, type);
+                    nextLine = br.readLine();
                 }
                 nextRow++;
             }
         } catch (IOException e) {
+            System.out.println("EW");
             throw new RuntimeException(e);
+        }
+        isReady = true;
+        for(Tile[] a : currentMap) {
+            for (Tile b : a) {
+                if (b != null) {
+                    System.out.print(b.getSprite() + " ");
+                } else {
+                    System.out.print("null ");
+                }
+            }
+            System.out.println();
         }
     }
 }

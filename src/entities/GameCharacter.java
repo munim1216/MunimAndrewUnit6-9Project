@@ -22,7 +22,7 @@ public class GameCharacter extends Entity {
                          String name,
                          int rectangleX,
                          int rectangleY,
-                         int type,
+                         EntityType type,
                          int speed,
                          BufferedImage[][] animations,
                          int health,
