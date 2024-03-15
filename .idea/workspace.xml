@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f758cf9e-8d4f-414c-a1d7-aa8b74c62375" name="Changes" comment="import map somehwat implemented (needs new values and maybe a helper method when there are more polished values for what is what)">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_14_2024_1_37_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_14_2024_1_37_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_15_2024_10_04_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_15_2024_10_04_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/maps/testmap" beforeDir="false" afterPath="$PROJECT_DIR$/resources/maps/testmap" afterDir="false" />
+    <list default="true" id="f758cf9e-8d4f-414c-a1d7-aa8b74c62375" name="Changes" comment="TileManager seems to properly draw from a txt file, however the fix made me cry from how stupid my mistake was :(, RENEE-5">
       <change beforePath="$PROJECT_DIR$/src/level/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/level/TileManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710513993469</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="TileManager seems to properly draw from a txt file, however the fix made me cry from how stupid my mistake was :(, RENEE-5">
+      <option name="closed" value="true" />
+      <created>1710516990101</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1710516990101</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +205,8 @@
     <MESSAGE value="INITIAL COMMIT, trying to salvage code from Renee's World" />
     <MESSAGE value="Created placeholder sprites, testing how to draw tiles" />
     <MESSAGE value="import map somehwat implemented (needs new values and maybe a helper method when there are more polished values for what is what)" />
-    <option name="LAST_COMMIT_MESSAGE" value="import map somehwat implemented (needs new values and maybe a helper method when there are more polished values for what is what)" />
+    <MESSAGE value="TileManager seems to properly draw from a txt file, however the fix made me cry from how stupid my mistake was :(, RENEE-5" />
+    <option name="LAST_COMMIT_MESSAGE" value="TileManager seems to properly draw from a txt file, however the fix made me cry from how stupid my mistake was :(, RENEE-5" />
   </component>
   <component name="WfRunsListSearchHistory">{
   &quot;history&quot;: [

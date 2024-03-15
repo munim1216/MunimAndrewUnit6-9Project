@@ -9,10 +9,8 @@ public class TileManager {
     private Tile[][] currentMap;
     // TEST SPRITES
     private BufferedImage one, two, three;
-    private boolean isReady;
     public TileManager() {
         currentMap = new Tile[12][16];
-        isReady = false;
         try {
             one = ImageIO.read(new File("resources/tiles/TEST1.png"));
             two = ImageIO.read(new File("resources/tiles/TEST2.png"));
@@ -23,11 +21,9 @@ public class TileManager {
         }
     }
     public void draw(Graphics2D g2D) {
-        if (currentMap != null) {
-            for (int y = 0; y < currentMap.length; y++) {
-                for (int x = 0; x < currentMap[0].length; x++) {
-                    g2D.drawImage(currentMap[y][x].getSprite(), x * 48, y * 48, 48, 48, null);
-                }
+        for (int y = 0; y < currentMap.length; y++) {
+            for (int x = 0; x < currentMap[0].length; x++) {
+                g2D.drawImage(currentMap[y][x].getSprite(), x * 48, y * 48, 48, 48, null);
             }
         }
     }
@@ -56,27 +52,13 @@ public class TileManager {
                             type = TileType.TEST3;
                         }
                     }
-                    System.out.println("CURRENT COL: " + nextCol + sprite);
                     currentMap[nextRow][nextCol] = new Tile(sprite, type);
-
                 }
                 nextLine = br.readLine();
                 nextRow++;
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        isReady = true;
-        System.out.println("\n\n\n");
-        for(Tile[] a : currentMap) {
-            for (Tile b : a) {
-                if (b != null) {
-                    System.out.print(b.getSprite() + " ");
-                } else {
-                    System.out.print("null ");
-                }
-            }
-            System.out.println();
         }
     }
 }
