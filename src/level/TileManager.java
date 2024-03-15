@@ -3,8 +3,7 @@ package level;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class TileManager {
     private Tile[][] currentMap;
@@ -12,39 +11,55 @@ public class TileManager {
     private BufferedImage one, two, three;
 
     public TileManager() {
+        currentMap = new Tile[16][12];
         try {
             one = ImageIO.read(new File("resources/TEST1.png"));
             two = ImageIO.read(new File("resources/TEST2.png"));
             three = ImageIO.read(new File("resources/TEST3.png"));
+            importMap("resources/maps/testmap");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public void draw(Graphics2D g2D) {
-
-        int x = 0;
-        int y = 0;
-
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 16; i++) {
-                g2D.drawImage(one, x + (i * 48), y, 48, 48, null);
+        for (int y = 0; y < 12; y += 48) {
+            for (int x = 0; x < 16; x += 48) {
+                g2D
             }
-            y += 144;
-        }
-        y = 48;
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 16; i++) {
-                g2D.drawImage(two, x + (i * 48), y, 48, 48, null);
-            }
-            y += 144;
-        }
-        y = 48 * 2;
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 16; i++) {
-                g2D.drawImage(three, x + (i * 48), y, 48, 48, null);
-            }
-            y += 144;
         }
     }
 
+    private void importMap(String path) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String nextLine = br.readLine();
+            int nextRow = 0;
+            while (nextLine != null) {
+                nextLine = br.readLine();
+                String[] values = nextLine.split(",");
+                for (int i = 0; i < values.length; i++) {
+                    BufferedImage sprite = null;
+                    TileType type = null;
+                    switch (values[i]) {
+                        case "0" -> {
+                            sprite = one;
+                            type = TileType.TEST1;
+                        }
+                        case "1" -> {
+                            sprite = two;
+                            type = TileType.TEST2;
+                        }
+                        case "2" -> {
+                            sprite = three;
+                            type = TileType.TEST3;
+                        }
+                    }
+
+                    currentMap[nextRow][i] = new Tile(sprite, type);
+                }
+                nextRow++;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
