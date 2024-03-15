@@ -11,5 +11,4 @@ public class Tile {
         sprite = image;
         this.typeOfTile = typeOfTile;
     }
-
 }
