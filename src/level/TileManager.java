@@ -11,7 +11,7 @@ public class TileManager {
     private BufferedImage one, two, three;
     private boolean isReady;
     public TileManager() {
-        currentMap = new Tile[16][12];
+        currentMap = new Tile[12][16];
         isReady = false;
         try {
             one = ImageIO.read(new File("resources/tiles/TEST1.png"));
@@ -24,8 +24,8 @@ public class TileManager {
     }
     public void draw(Graphics2D g2D) {
         if (currentMap != null) {
-            for (int y = 0; y < 16; y++) {
-                for (int x = 0; x < 12; x++) {
+            for (int y = 0; y < currentMap.length; y++) {
+                for (int x = 0; x < currentMap[0].length; x++) {
                     g2D.drawImage(currentMap[y][x].getSprite(), x * 48, y * 48, 48, 48, null);
                 }
             }
@@ -42,31 +42,32 @@ public class TileManager {
                 for (int nextCol = 0; nextCol < values.length; nextCol++) {
                     BufferedImage sprite = null;
                     TileType type = null;
-                    switch (values[nextCol]) {
-                        case "0" -> {
+                    switch (Integer.parseInt(values[nextCol])) {
+                        case 0 -> {
                             sprite = one;
                             type = TileType.TEST1;
                         }
-                        case "1" -> {
+                        case 1 -> {
                             sprite = two;
                             type = TileType.TEST2;
                         }
-                        case "2" -> {
+                        case 2 -> {
                             sprite = three;
                             type = TileType.TEST3;
                         }
                     }
-                    System.out.println("ACCESSBILE");
+                    System.out.println("CURRENT COL: " + nextCol + sprite);
                     currentMap[nextRow][nextCol] = new Tile(sprite, type);
-                    nextLine = br.readLine();
+
                 }
+                nextLine = br.readLine();
                 nextRow++;
             }
         } catch (IOException e) {
-            System.out.println("EW");
             throw new RuntimeException(e);
         }
         isReady = true;
+        System.out.println("\n\n\n");
         for(Tile[] a : currentMap) {
             for (Tile b : a) {
                 if (b != null) {
