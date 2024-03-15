@@ -1,5 +1,7 @@
 package main;
 
+import level.TileManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,6 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
     // TEST VARIABLES
     int x = 0;
     int y = 0;
+    // THE GAME TILES
+    private TileManager tm;
     public GamePanel() {
         // setting up size of the panel
         this.setPreferredSize(new Dimension(tile_size * MAX_SCREEN_COL, tile_size * MAX_SCREEN_ROW));
@@ -27,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
 
-
+        tm = new TileManager();
         startGameThread();
         setUpWindow();
 
@@ -75,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2D = (Graphics2D) g;
+        tm.draw(g2D);
         g2D.setColor(Color.PINK);
         g2D.fillRect(x, y, 100, 100);
     }
