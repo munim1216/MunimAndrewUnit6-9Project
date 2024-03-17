@@ -7,23 +7,17 @@ import java.io.*;
 
 public class TileManager {
     private Tile[][] currentMap;
-    // TEST SPRITES
-    private BufferedImage one, two, three;
+    private BufferedImage[] tileSprites;
     public TileManager() {
         currentMap = new Tile[12][16];
-        try {
-            one = ImageIO.read(new File("resources/tiles/TEST1.png"));
-            two = ImageIO.read(new File("resources/tiles/TEST2.png"));
-            three = ImageIO.read(new File("resources/tiles/TEST3.png"));
-            importMap("resources/maps/testmap");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tileSprites = new BufferedImage[13]; // number to be changed as more sprites are made
+        importMap("resources/maps/testmap");
     }
     public void draw(Graphics2D g2D) {
         for (int y = 0; y < currentMap.length; y++) {
             for (int x = 0; x < currentMap[0].length; x++) {
-                g2D.drawImage(currentMap[y][x].getSprite(), x * 48, y * 48, 48, 48, null);
+                System.out.println(currentMap[y][x].getSprite());
+                g2D.drawImage(TileType.GRASS1.SPRITE, x * 48, y * 48, 48, 48, null);
             }
         }
     }
@@ -36,23 +30,7 @@ public class TileManager {
             while (nextLine != null) {
                 String[] values = nextLine.split(",");
                 for (int nextCol = 0; nextCol < values.length; nextCol++) {
-                    BufferedImage sprite = null;
-                    TileType type = null;
-                    switch (Integer.parseInt(values[nextCol])) {
-                        case 0 -> {
-                            sprite = one;
-                            type = TileType.TEST1;
-                        }
-                        case 1 -> {
-                            sprite = two;
-                            type = TileType.TEST2;
-                        }
-                        case 2 -> {
-                            sprite = three;
-                            type = TileType.TEST3;
-                        }
-                    }
-                    currentMap[nextRow][nextCol] = new Tile(sprite, type);
+                    currentMap[nextRow][nextCol] = new Tile(typeAssigner(Integer.parseInt(values[nextCol])));
                 }
                 nextLine = br.readLine();
                 nextRow++;
@@ -60,5 +38,24 @@ public class TileManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private TileType typeAssigner(int type) {
+       return switch (type) {
+           case 10 -> TileType.GRASS1;
+           case 11 -> TileType.GRASS2;
+           case 12 -> TileType.GRASS3;
+           case 13 -> TileType.GRASS4;
+           case 14 -> TileType.GRASS5;
+           case 15 -> TileType.GRASS6;
+           case 16 -> TileType.GRASS7;
+           case 17 -> TileType.GRASS8;
+           case 18 -> TileType.GRASS9;
+           case 19 -> TileType.TREES1;
+           case 20 -> TileType.TREES2;
+           case 21 -> TileType.TREES3;
+           case 22 -> TileType.TREES4;
+           default -> throw new IllegalStateException("Unexpected value: " + type);
+       };
     }
 }

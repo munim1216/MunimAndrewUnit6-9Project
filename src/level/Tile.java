@@ -2,25 +2,22 @@ package level;
 
 import java.awt.image.BufferedImage;
 
-public class Tile {
-    private BufferedImage sprite;
-    private boolean collision;
-    private TileType typeOfTile;
 
-    public Tile(BufferedImage image, TileType typeOfTile) {
-        sprite = image;
-        this.typeOfTile = typeOfTile;
+public class Tile {
+
+    public final TileType TYPE_OF_TILE;
+
+    public Tile(TileType typeOfTile) {
+        this.TYPE_OF_TILE = typeOfTile;
+
     }
 
     public BufferedImage getSprite() {
-        return sprite;
+        return TYPE_OF_TILE.SPRITE;
     }
 
     public boolean isCollision() {
-        return collision;
+        return TYPE_OF_TILE.COLLISION;
     }
 
-    public TileType getTypeOfTile() {
-        return typeOfTile;
-    }
 }
