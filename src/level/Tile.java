@@ -9,7 +9,6 @@ public class Tile {
 
     public Tile(TileType typeOfTile) {
         this.TYPE_OF_TILE = typeOfTile;
-
     }
 
     public BufferedImage getSprite() {

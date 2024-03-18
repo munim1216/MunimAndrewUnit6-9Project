@@ -16,8 +16,7 @@ public class TileManager {
     public void draw(Graphics2D g2D) {
         for (int y = 0; y < currentMap.length; y++) {
             for (int x = 0; x < currentMap[0].length; x++) {
-                System.out.println(currentMap[y][x].getSprite());
-                g2D.drawImage(TileType.GRASS1.SPRITE, x * 48, y * 48, 48, 48, null);
+                g2D.drawImage(currentMap[y][x].getSprite(), x * 48, y * 48, 48, 48, null);
             }
         }
     }
