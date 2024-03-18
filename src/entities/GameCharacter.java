@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GameCharacter extends Entity {
@@ -24,13 +25,13 @@ public class GameCharacter extends Entity {
                          int rectangleY,
                          EntityType type,
                          int speed,
-                         BufferedImage[][] animations,
+                         BufferedImage animations,
                          int health,
                          int damage
     ) {
         super(worldX, worldY, name, rectangleX, rectangleY, type);
         this.speed = speed;
-        this.animations = animations;
+        this.animations = splitSpriteSheet(animations);
         this.health = health;
         this.damage = damage;
         direction = DIRECTION_DOWN;
@@ -42,5 +43,40 @@ public class GameCharacter extends Entity {
         hasDied = false;
         deathAnimationCounter = 0;
         isDeathAnimationOver = false;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getActionLockCounter() {
+        return actionLockCounter;
+    }
+
+    public void incrementActionLockCounter() {
+        actionLockCounter++;
+    }
+
+    public void draw(Graphics2D g2D) {
+        if (actionLockCounter > 10) {
+            if (currentSprite < animations[0].length - 1) {
+                currentSprite++;
+            } else {
+                currentSprite = 0;
+            }
+            actionLockCounter = 0;
+        }
+        g2D.drawImage(animations[typeOfSprite][currentSprite], getWorldX(), getWorldY(), 48, 48, null);
+    }
+
+    private BufferedImage[][] splitSpriteSheet(BufferedImage unsplit) {
+        BufferedImage[][] animations = new BufferedImage[unsplit.getHeight() / 64][unsplit.getWidth() / 64];
+        for (int row = 0; row < unsplit.getHeight() / 64; row++) { // number is 64 because for some reason each sprite is upscaled to that in my sprite sheet
+            for (int col = 0; col < unsplit.getWidth() / 64; col++) {
+                animations[row][col] = unsplit.getSubimage(col * 64, row * 64, 64, 64);
+            }
+        }
+
+        return animations;
     }
 }
