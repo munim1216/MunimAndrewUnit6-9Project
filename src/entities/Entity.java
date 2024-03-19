@@ -15,4 +15,21 @@ public abstract class Entity {
         this.TYPE = type;
         hitbox = new Rectangle(0,0, rectangleX, rectangleY);
     }
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public void move(int deltaX, int deltaY) {
+        worldX += deltaX;
+        worldY += deltaY;
+    }
 }
