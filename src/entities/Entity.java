@@ -24,11 +24,12 @@ public abstract class Entity {
         return worldY;
     }
 
-    public void setWorldX(int worldX) {
-        this.worldX = worldX;
+    public Rectangle getHitbox() {
+        return hitbox;
     }
 
-    public void setWorldY(int worldY) {
-        this.worldY = worldY;
+    public void move(int deltaX, int deltaY) {
+        worldX += deltaX;
+        worldY += deltaY;
     }
 }
