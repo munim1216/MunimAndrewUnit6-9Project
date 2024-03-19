@@ -15,19 +15,25 @@ public class Player extends GameCharacter {
         int deltaY = 0;
         if (keyH.isDKeyPressed()) {
             deltaX += getSpeed();
-            setDirection(Direction.RIGHT);
         }
         if (keyH.isAKeyPressed()) {
             deltaX -= getSpeed();
-            setDirection(Direction.LEFT);
         }
         if (keyH.isWKeyPressed()) {
             deltaY -= getSpeed();
-            setDirection(Direction.UP);
         }
         if (keyH.isSKeyPressed()) {
             deltaY += getSpeed();
+        }
+
+        if (deltaY > 0) {
             setDirection(Direction.DOWN);
+        } else if (deltaY < 0) {
+            setDirection(Direction.UP);
+        } else if (deltaX < 0) {
+            setDirection(Direction.LEFT);
+        } else if (deltaX > 0) {
+            setDirection(Direction.RIGHT);
         }
 
         if (keyH.isMovementKeyPressed()) {
