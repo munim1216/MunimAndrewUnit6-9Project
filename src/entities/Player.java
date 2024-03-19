@@ -10,21 +10,21 @@ public class Player extends GameCharacter {
         this.keyH = keyH;
     }
 
-    public void process() {
-        if (keyH.isRightKeyPressed()) {
+    public void processInput() {
+        if (keyH.isDKeyPressed()) {
             setWorldX(getWorldX() + getSpeed());
-            incrementActionLockCounter();
         }
-        if (keyH.isLeftKeyPressed()) {
+        if (keyH.isAKeyPressed()) {
             setWorldX(getWorldX() - getSpeed());
-            incrementActionLockCounter();
         }
-        if (keyH.isUpKeyPressed()) {
+        if (keyH.isWKeyPressed()) {
             setWorldY(getWorldY() - getSpeed());
-            incrementActionLockCounter();
         }
-        if (keyH.isDownKeyPressed()) {
+        if (keyH.isSKeyPressed()) {
             setWorldY(getWorldY() + getSpeed());
+        }
+
+        if (keyH.isMovementKeyPressed()) {
             incrementActionLockCounter();
         }
     }

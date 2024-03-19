@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    private boolean wKeyPressed, sKeyPressed, aKeyPressed, dKeyPressed; // movement keys
+    private boolean wKeyPressed, sKeyPressed, aKeyPressed, dKeyPressed, movementKeyPressed; // movement keys
     private boolean fKeyPressed; // interact key
     private boolean upKeyPressed, downKeyPressed, leftKeyPressed, rightKeyPressed; // attack keys
     public KeyHandler(){}
@@ -44,6 +44,10 @@ public class KeyHandler implements KeyListener {
         return fKeyPressed;
     }
 
+    public boolean isMovementKeyPressed() {
+        return movementKeyPressed;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -54,10 +58,22 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         switch (code) {
-            case KeyEvent.VK_W -> wKeyPressed = true;
-            case KeyEvent.VK_S -> sKeyPressed = true;
-            case KeyEvent.VK_A -> aKeyPressed = true;
-            case KeyEvent.VK_D -> dKeyPressed = true;
+            case KeyEvent.VK_W -> {
+                wKeyPressed = true;
+                movementKeyPressed = true;
+            }
+            case KeyEvent.VK_S -> {
+                sKeyPressed = true;
+                movementKeyPressed = true;
+            }
+            case KeyEvent.VK_A -> {
+                aKeyPressed = true;
+                movementKeyPressed = true;
+            }
+            case KeyEvent.VK_D -> {
+                dKeyPressed = true;
+                movementKeyPressed = true;
+            }
             case KeyEvent.VK_F -> fKeyPressed = true;
             case KeyEvent.VK_UP -> upKeyPressed = true;
             case KeyEvent.VK_DOWN -> downKeyPressed = true;

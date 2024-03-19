@@ -21,9 +21,6 @@ public class GamePanel extends JPanel implements Runnable {
     // TRACKING INPUT
     KeyHandler keyH;
     // TEST VARIABLES
-    private int x = 0;
-    private int y = 0;
-
     private Player player;
     // THE GAME TILES
     private TileManager tm;
@@ -38,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
         tm = new TileManager();
-        try {
+        try { // TESTING
             player = new Player(250, 250, "Munim", 0, 0, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1, keyH);
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,19 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
             if (delta >= 1) {
                 // delta being 1 or greater means 1/60 of a second;
                 repaint();
-                player.process();
-//                if (keyH.isUpKeyPressed()) {
-//                    y--;
-//                }
-//                if (keyH.isDownKeyPressed()) {
-//                    y++;
-//                }
-//                if (keyH.isRightKeyPressed()) {
-//                    x++;
-//                }
-//                if (keyH.isLeftKeyPressed()) {
-//                    x--;
-//                }
+                player.processInput();
                 delta = 0;
             }
         }
@@ -93,8 +78,6 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
         player.draw(g2D);
-        g2D.setColor(Color.PINK);
-        g2D.fillRect(x, y, 100, 100);
     }
 
     private void setUpWindow() {
