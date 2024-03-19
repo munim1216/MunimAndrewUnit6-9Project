@@ -11,21 +11,29 @@ public class Player extends GameCharacter {
     }
 
     public void processInput() {
+        int deltaX = 0;
+        int deltaY = 0;
         if (keyH.isDKeyPressed()) {
-            setWorldX(getWorldX() + getSpeed());
+            deltaX += getSpeed();
+            setDirection(Direction.RIGHT);
         }
         if (keyH.isAKeyPressed()) {
-            setWorldX(getWorldX() - getSpeed());
+            deltaX -= getSpeed();
+            setDirection(Direction.LEFT);
         }
         if (keyH.isWKeyPressed()) {
-            setWorldY(getWorldY() - getSpeed());
+            deltaY -= getSpeed();
+            setDirection(Direction.UP);
         }
         if (keyH.isSKeyPressed()) {
-            setWorldY(getWorldY() + getSpeed());
+            deltaY += getSpeed();
+            setDirection(Direction.DOWN);
         }
 
         if (keyH.isMovementKeyPressed()) {
             incrementActionLockCounter();
         }
+
+        move(deltaX, deltaY);
     }
 }
