@@ -11,7 +11,7 @@ public abstract class Entity {
     private final EntityType TYPE;
     private BufferedImage[][] animations;
 
-    public Entity(int worldX, int worldY, String name, int rectangleX, int rectangleY, EntityType type, BufferedImage[][] animations) {
+    Entity(int worldX, int worldY, String name, int rectangleX, int rectangleY, EntityType type, BufferedImage[][] animations) {
         this.worldX = worldX;
         this.worldY = worldY;
         this.name = name;
@@ -24,7 +24,7 @@ public abstract class Entity {
         return hitbox;
     }
 
-    protected boolean collidesWith(Entity otherEntity) {
+    boolean collidesWith(Entity otherEntity) {
         return this != otherEntity && hitbox.intersects(otherEntity.getHitbox());
     }
 

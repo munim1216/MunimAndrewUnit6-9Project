@@ -9,8 +9,8 @@ public class EntityManager {
         entities = new ArrayList<>();
     }
 
-    public void addEntity(Entity entity) {
-        entities.add(entity);
+    public boolean removeEntity(Entity entity) {
+        return entities.remove(entity);
     }
 
     public ArrayList<Entity> collidesWith(Entity entity) {
@@ -22,5 +22,9 @@ public class EntityManager {
         }
 
         return collidesWith;
+    }
+
+    public void dealWithCollisions() {
+
     }
 }
