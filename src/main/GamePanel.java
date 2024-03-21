@@ -9,8 +9,10 @@ import java.io.File;
 import java.io.IOException;
 
 import entities.*;
+import ui.BaseUI;
+
 public class GamePanel extends JPanel implements Runnable {
-    public static int tile_size = 48; // default tile size is 48
+    public static final int TILE_SIZE = 48; // default tile size is 48
     private int scale; // plans to use this to allow for window resizing
 
     public static final int MAX_SCREEN_COL = 16; // used for how to draw tiles
@@ -22,17 +24,21 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH;
     // TEST VARIABLES
     private Player player;
+    private BaseUI ui;
     // THE GAME TILES
     private TileManager tm;
+
     public GamePanel() {
         // setting up size of the panel
-        this.setPreferredSize(new Dimension(tile_size * MAX_SCREEN_COL, tile_size * MAX_SCREEN_ROW));
+        this.setPreferredSize(new Dimension(TILE_SIZE * MAX_SCREEN_COL, TILE_SIZE * MAX_SCREEN_ROW));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
 
         keyH = new KeyHandler();
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+        ui = new BaseUI();
 
         tm = new TileManager();
         try { // TESTING
@@ -77,7 +83,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
+        // ui.drawBoxWithMessage is test code
+        ui.drawBoxWithMessage(g2D,48, 48,256,256, BaseUI.opaqueBlack ,Color.WHITE,"Hello World!\nHow do you do!\nI hope you work!");
         player.draw(g2D);
+
     }
 
     private void setUpWindow() {
