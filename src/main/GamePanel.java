@@ -19,7 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
     // GAME LOOP
     private Thread gameThread;
     // TRACKING INPUT
-    KeyHandler keyH;
+    private KeyHandler keyH;
+    private MouseHandler mouseH;
     // TEST VARIABLES
     private Player player;
     // THE GAME TILES
@@ -32,6 +33,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         keyH = new KeyHandler();
         this.addKeyListener(keyH);
+
+        mouseH = new MouseHandler();
+        this.addMouseListener(mouseH);
         this.setFocusable(true);
 
         tm = new TileManager();
@@ -66,6 +70,13 @@ public class GamePanel extends JPanel implements Runnable {
                 // delta being 1 or greater means 1/60 of a second;
                 repaint();
                 player.processInput();
+                if (mouseH.isPressed()) { // testing mouse input
+                    System.out.println("pressed");
+                    System.out.println(getLocationOnScreen());
+
+                } else {
+                    System.out.println("released");
+                }
                 delta = 0;
             }
         }
