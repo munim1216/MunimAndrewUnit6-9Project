@@ -7,17 +7,26 @@ import java.awt.event.MouseListener;
 public class MouseHandler implements MouseListener {
     private boolean pressed;
     private GamePanel gp;
-
+    private Point lastPoint;
     public MouseHandler(GamePanel gp) {
         this.gp = gp;
+        lastPoint = new Point(0,0);
     }
     public boolean isPressed() {
         return pressed;
     }
     public Point getMouseLocation() {
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-        mouseLocation.translate(-gp.getLocationOnScreen().x, -gp.getLocationOnScreen().y);
-        return mouseLocation;
+        if (new Rectangle(gp.getLocationOnScreen().x, gp.getLocationOnScreen().y, gp.getWidth(), gp.getHeight()).contains(mouseLocation)) {
+            mouseLocation.translate(-gp.getLocationOnScreen().x, -gp.getLocationOnScreen().y);
+            lastPoint = mouseLocation;
+            System.out.println("inside");
+            return mouseLocation;
+        } else {
+            return lastPoint;
+        }
+
+        //return mouseLocation;
     }
     @Override
     public void mouseClicked(MouseEvent e) {
