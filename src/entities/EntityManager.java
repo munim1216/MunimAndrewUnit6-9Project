@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class EntityManager {
@@ -24,7 +25,7 @@ public class EntityManager {
         return collidesWith;
     }
 
-    public void dealWithCollisions(Entity entity) {
+    public void dealWithCollisions(Moveable entity) {
         ArrayList<Entity> entitiesCollidedWith = collidesWith(entity);
 
         if (entitiesCollidedWith.isEmpty()) {
@@ -32,7 +33,15 @@ public class EntityManager {
         }
 
         for (Entity otherEntity : entitiesCollidedWith) {
-
+            dealWithTwoCollisions(entity, otherEntity);
         }
+    }
+
+    public void dealWithTwoCollisions(Moveable entity, Entity otherEntity) {
+        Rectangle entityHitbox = entity.getHitbox();
+        Rectangle entityTrailingHitbox = entity.getTrailingHitbox();
+        Rectangle otherEntityHitbox = otherEntity.getHitbox();
+
+        if ()
     }
 }
