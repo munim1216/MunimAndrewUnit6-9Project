@@ -14,4 +14,8 @@ public class Moveable extends Entity {
         trailingHitbox.setLocation(getPoint());
         super.move(dx, dy);
     }
+
+    Rectangle getTrailingHitbox() {
+        return trailingHitbox;
+    }
 }

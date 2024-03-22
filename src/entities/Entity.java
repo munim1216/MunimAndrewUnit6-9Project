@@ -27,4 +27,8 @@ public abstract class Entity {
     Point getPoint() {
         return point;
     }
+
+    boolean collidesWith(Entity otherEntity) {
+        return this != otherEntity && hitbox.intersects(otherEntity.getHitbox());
+    }
 }

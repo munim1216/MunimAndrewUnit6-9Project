@@ -24,7 +24,15 @@ public class EntityManager {
         return collidesWith;
     }
 
-    public void dealWithCollisions() {
+    public void dealWithCollisions(Entity entity) {
+        ArrayList<Entity> entitiesCollidedWith = collidesWith(entity);
 
+        if (entitiesCollidedWith.isEmpty()) {
+            return;
+        }
+
+        for (Entity otherEntity : entitiesCollidedWith) {
+
+        }
     }
 }
