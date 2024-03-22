@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
         keyH = new KeyHandler();
         this.addKeyListener(keyH);
 
-        mouseH = new MouseHandler();
+        mouseH = new MouseHandler(this);
         this.addMouseListener(mouseH);
         this.setFocusable(true);
 
@@ -70,13 +70,6 @@ public class GamePanel extends JPanel implements Runnable {
                 // delta being 1 or greater means 1/60 of a second;
                 repaint();
                 player.processInput();
-                if (mouseH.isPressed()) { // testing mouse input
-                    System.out.println("pressed");
-                    System.out.println(getLocationOnScreen());
-
-                } else {
-                    System.out.println("released");
-                }
                 delta = 0;
             }
         }
@@ -88,6 +81,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
+        // mouse handler test code
+        g2D.drawLine(player.getWorldX(), player.getWorldY(), mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         player.draw(g2D);
     }
 
