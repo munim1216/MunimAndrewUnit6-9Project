@@ -15,8 +15,4 @@ public class Tile {
         return TYPE_OF_TILE.SPRITE;
     }
 
-    public boolean isCollision() {
-        return TYPE_OF_TILE.COLLISION;
-    }
-
 }

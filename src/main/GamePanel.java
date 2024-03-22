@@ -21,7 +21,8 @@ public class GamePanel extends JPanel implements Runnable {
     // GAME LOOP
     private Thread gameThread;
     // TRACKING INPUT
-    KeyHandler keyH;
+    private KeyHandler keyH;
+    private MouseHandler mouseH;
     // TEST VARIABLES
     private Player player;
     private BaseUI ui;
@@ -36,6 +37,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         keyH = new KeyHandler();
         this.addKeyListener(keyH);
+
+        mouseH = new MouseHandler(this);
+        this.addMouseListener(mouseH);
         this.setFocusable(true);
 
         ui = new BaseUI();
@@ -85,6 +89,8 @@ public class GamePanel extends JPanel implements Runnable {
         tm.draw(g2D);
         // ui.drawBoxWithMessage is test code
         ui.drawBoxWithMessage(g2D,48, 48,256,256, BaseUI.opaqueBlack ,Color.WHITE,"Hello World!\nHow do you do!\nI hope you work!");
+        // mouse handler test code
+        g2D.drawLine(player.getWorldX(), player.getWorldY(), mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         player.draw(g2D);
 
     }
