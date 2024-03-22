@@ -6,27 +6,26 @@ import java.awt.event.MouseListener;
 
 public class MouseHandler implements MouseListener {
     private boolean pressed;
+    private boolean inScreen;
     private GamePanel gp;
     private Point lastPoint;
     public MouseHandler(GamePanel gp) {
         this.gp = gp;
         lastPoint = new Point(0,0);
+        inScreen = true;
     }
     public boolean isPressed() {
         return pressed;
     }
     public Point getMouseLocation() {
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-        if (new Rectangle(gp.getLocationOnScreen().x, gp.getLocationOnScreen().y, gp.getWidth(), gp.getHeight()).contains(mouseLocation)) {
+        if (inScreen) {
             mouseLocation.translate(-gp.getLocationOnScreen().x, -gp.getLocationOnScreen().y);
             lastPoint = mouseLocation;
-            System.out.println("inside");
             return mouseLocation;
         } else {
             return lastPoint;
         }
-
-        //return mouseLocation;
     }
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -45,11 +44,11 @@ public class MouseHandler implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        inScreen = true;
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        inScreen = false;
     }
 }
