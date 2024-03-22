@@ -6,13 +6,18 @@ import java.awt.event.MouseListener;
 
 public class MouseHandler implements MouseListener {
     private boolean pressed;
+    private GamePanel gp;
 
-    public MouseHandler(){}
+    public MouseHandler(GamePanel gp) {
+        this.gp = gp;
+    }
     public boolean isPressed() {
         return pressed;
     }
     public Point getMouseLocation() {
-        return MouseInfo.getPointerInfo().getLocation();
+        Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+        mouseLocation.translate(-gp.getLocationOnScreen().x, -gp.getLocationOnScreen().y);
+        return mouseLocation;
     }
     @Override
     public void mouseClicked(MouseEvent e) {
