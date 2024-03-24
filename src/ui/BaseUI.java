@@ -21,4 +21,8 @@ public class BaseUI {
             y += 35;
         }
     }
+
+    protected void addClickable(Rectangle rect) {
+        clickable.add(rect);
+    }
 }

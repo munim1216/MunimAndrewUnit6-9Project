@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import entities.*;
 import ui.BaseUI;
+import ui.ChoiceBox;
 
 public class GamePanel extends JPanel implements Runnable {
     public static final int TILE_SIZE = 48; // default tile size is 48
@@ -25,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     private MouseHandler mouseH;
     // TEST VARIABLES
     private Player player;
-    private BaseUI ui;
+    private ChoiceBox ui;
     // THE GAME TILES
     private TileManager tm;
 
@@ -42,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseListener(mouseH);
         this.setFocusable(true);
 
-        ui = new BaseUI();
+        ui = new ChoiceBox();
 
         tm = new TileManager();
         try { // TESTING
@@ -88,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
         // ui.drawBoxWithMessage is test code
-        ui.drawBoxWithMessage(g2D,48, 48,256,256, BaseUI.opaqueBlack ,Color.WHITE,"Hello World!\nHow do you do!\nI hope you work!");
+        ui.drawChoiceBox(g2D,48, 48,256,128, BaseUI.opaqueBlack ,Color.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
         // mouse handler test code
         g2D.drawLine(player.getWorldX(), player.getWorldY(), mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         player.draw(g2D);
