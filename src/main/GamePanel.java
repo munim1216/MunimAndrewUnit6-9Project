@@ -2,9 +2,13 @@ package main;
 
 import level.TileManager;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
+import entities.*;
 public class GamePanel extends JPanel implements Runnable {
     public static int tile_size = 48; // default tile size is 48
     private int scale; // plans to use this to allow for window resizing
@@ -15,10 +19,10 @@ public class GamePanel extends JPanel implements Runnable {
     // GAME LOOP
     private Thread gameThread;
     // TRACKING INPUT
-    KeyHandler keyH;
+    private KeyHandler keyH;
+    private MouseHandler mouseH;
     // TEST VARIABLES
-    int x = 0;
-    int y = 0;
+    private Player player;
     // THE GAME TILES
     private TileManager tm;
     public GamePanel() {
@@ -29,9 +33,17 @@ public class GamePanel extends JPanel implements Runnable {
 
         keyH = new KeyHandler();
         this.addKeyListener(keyH);
+
+        mouseH = new MouseHandler(this);
+        this.addMouseListener(mouseH);
         this.setFocusable(true);
 
         tm = new TileManager();
+        try { // TESTING
+            player = new Player(250, 250, "Munim", 0, 0, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1, keyH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         startGameThread();
         setUpWindow();
 
@@ -57,18 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
             if (delta >= 1) {
                 // delta being 1 or greater means 1/60 of a second;
                 repaint();
-                if (keyH.isUpKeyPressed()) {
-                    y--;
-                }
-                if (keyH.isDownKeyPressed()) {
-                    y++;
-                }
-                if (keyH.isRightKeyPressed()) {
-                    x++;
-                }
-                if (keyH.isLeftKeyPressed()) {
-                    x--;
-                }
+                player.processInput();
                 delta = 0;
             }
         }
@@ -80,8 +81,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
-        g2D.setColor(Color.PINK);
-        g2D.fillRect(x, y, 100, 100);
+        // mouse handler test code
+        g2D.drawLine(player.getPoint().x, player.getPoint().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
+        player.draw(g2D);
     }
 
     private void setUpWindow() {

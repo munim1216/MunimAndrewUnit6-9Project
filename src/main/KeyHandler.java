@@ -44,6 +44,10 @@ public class KeyHandler implements KeyListener {
         return fKeyPressed;
     }
 
+    public boolean isMovementKeyPressed() {
+        return wKeyPressed || sKeyPressed || aKeyPressed || dKeyPressed;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -69,7 +73,9 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> wKeyPressed = false;
+            case KeyEvent.VK_W -> {
+                wKeyPressed = false;
+            }
             case KeyEvent.VK_S -> sKeyPressed = false;
             case KeyEvent.VK_A -> aKeyPressed = false;
             case KeyEvent.VK_D -> dKeyPressed = false;

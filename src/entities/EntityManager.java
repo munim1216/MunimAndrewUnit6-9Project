@@ -42,6 +42,6 @@ public class EntityManager {
         Rectangle entityTrailingHitbox = entity.getTrailingHitbox();
         Rectangle otherEntityHitbox = otherEntity.getHitbox();
 
-        if ()
+//        if ()
     }
 }

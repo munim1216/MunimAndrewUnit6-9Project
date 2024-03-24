@@ -34,7 +34,7 @@ public class GameCharacter extends Entity {
         this.animations = splitSpriteSheet(animations);
         this.health = health;
         this.damage = damage;
-        direction = Direction.DOWN; // lol default
+        direction = Direction.DOWN;
         currentSprite = 0;
         typeOfSprite = 0;
         actionLockCounter = 0;
@@ -49,6 +49,10 @@ public class GameCharacter extends Entity {
         return speed;
     }
 
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
     public int getActionLockCounter() {
         return actionLockCounter;
     }
@@ -59,6 +63,12 @@ public class GameCharacter extends Entity {
 
     public void draw(Graphics2D g2D) {
         if (actionLockCounter > 10) {
+            switch (direction) {
+                case DOWN -> typeOfSprite = 0;
+                case RIGHT -> typeOfSprite = 1;
+                case LEFT -> typeOfSprite = 2;
+                case UP -> typeOfSprite = 3;
+            }
             if (currentSprite < animations[0].length - 1) {
                 currentSprite++;
             } else {

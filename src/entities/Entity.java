@@ -24,7 +24,7 @@ public abstract class Entity {
         hitbox.translate(dx, dy);
     }
 
-    Point getPoint() {
+    public Point getPoint() {
         return point;
     }
 
