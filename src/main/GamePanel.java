@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseListener(mouseH);
         this.setFocusable(true);
 
-        ui = new ChoiceBox();
+        ui = new ChoiceBox(48, 48,256,128, BaseUI.opaqueBlack ,Color.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
 
         tm = new TileManager();
         try { // TESTING
@@ -89,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
         // ui.drawBoxWithMessage is test code
-        ui.drawChoiceBox(g2D,48, 48,256,128, BaseUI.opaqueBlack ,Color.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
+        ui.drawChoiceBox(g2D);
         // mouse handler test code
         g2D.drawLine(player.getWorldX(), player.getWorldY(), mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         player.draw(g2D);

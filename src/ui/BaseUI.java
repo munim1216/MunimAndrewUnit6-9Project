@@ -4,9 +4,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class BaseUI {
-    public BaseUI(){}
+
     private ArrayList<Rectangle> clickable; // this array list will contain all the clickable areas for buttons and the like
 
+    public BaseUI(){
+        clickable = new ArrayList<>();
+    }
     public static final Color opaqueBlack = new Color(0,0,0,200);
 
     public void drawBoxWithMessage(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor, String message) {
@@ -22,7 +25,7 @@ public class BaseUI {
         }
     }
 
-    protected void addClickable(Rectangle rect) {
-        clickable.add(rect);
+    protected ArrayList<Rectangle> getClickable() {
+        return clickable;
     }
 }
