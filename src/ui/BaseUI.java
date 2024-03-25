@@ -1,12 +1,26 @@
 package ui;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class BaseUI {
+    protected static final Font Verdana;
+
+    static {
+        System.out.println("hello world!");
+        try {
+            Verdana = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/PixelFJVerdana12pt.ttf"));
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private ArrayList<Rectangle> clickable; // this array list will contain all the clickable areas for buttons and the like
-
+    protected static final int TEXT_SPACING = 25;
     public BaseUI(){
         clickable = new ArrayList<>();
     }
@@ -21,11 +35,13 @@ public class BaseUI {
 
         for (String line : message.split("\n")) {
             g2D.drawString(line, x + 20, y + 24);
-            y += 35;
+            y += TEXT_SPACING;
         }
     }
 
     protected ArrayList<Rectangle> getClickable() {
         return clickable;
     }
+    
+
 }
