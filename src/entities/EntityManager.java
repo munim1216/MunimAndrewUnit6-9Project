@@ -38,10 +38,11 @@ public class EntityManager {
     }
 
     public void dealWithTwoCollisions(Moveable entity, Entity otherEntity) {
-        Rectangle entityHitbox = entity.getHitbox();
-        Rectangle entityTrailingHitbox = entity.getTrailingHitbox();
-        Rectangle otherEntityHitbox = otherEntity.getHitbox();
+        Rectangle hitbox = entity.getHitbox();
+        Rectangle trailingHitbox = entity.getTrailingHitbox();
+        Rectangle otherHitbox = otherEntity.getHitbox();
 
-//        if ()
+        int dx = hitbox.x - trailingHitbox.x;
+        int dy = hitbox.y - trailingHitbox.y;
     }
 }
