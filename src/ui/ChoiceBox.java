@@ -30,6 +30,7 @@ public class ChoiceBox extends BaseUI {
     }
 
     public void drawChoiceBox(Graphics2D g2D) {
+        g2D.setFont(CAVE_STORY);
         drawBoxWithMessage(g2D, x, y, width, height, backgroundColor, outlineColor, message);
         g2D.setColor(Color.BLUE);
         g2D.fillRect(choice1Rect.x, choice1Rect.y, choice1Rect.width, choice1Rect.height);

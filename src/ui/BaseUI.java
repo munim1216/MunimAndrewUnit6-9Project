@@ -6,21 +6,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BaseUI {
-    protected static final Font Verdana;
+    protected static final Font CAVE_STORY;
 
     static {
-        System.out.println("hello world!");
         try {
-            Verdana = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/PixelFJVerdana12pt.ttf"));
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            CAVE_STORY = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Cave-Story.ttf")).deriveFont(40f);
+        } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private ArrayList<Rectangle> clickable; // this array list will contain all the clickable areas for buttons and the like
-    protected static final int TEXT_SPACING = 25;
+    protected static final int TEXT_SPACING = 35;
     public BaseUI(){
         clickable = new ArrayList<>();
     }
@@ -34,8 +31,8 @@ public class BaseUI {
         g2D.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25) ;
 
         for (String line : message.split("\n")) {
-            g2D.drawString(line, x + 20, y + 24);
             y += TEXT_SPACING;
+            g2D.drawString(line, x + 20, y);
         }
     }
 
