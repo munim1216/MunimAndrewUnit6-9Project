@@ -19,9 +19,14 @@ public abstract class Entity {
         return hitbox;
     }
 
-    public void move(int dx, int dy) {
+    public void translate(int dx, int dy) {
         point.translate(dx, dy);
         hitbox.translate(dx, dy);
+    }
+
+    public void setLocation(Point point) {
+        point.setLocation(point);
+        hitbox.setLocation(point);
     }
 
     public Point getPoint() {

@@ -10,9 +10,14 @@ public class Moveable extends Entity {
         trailingHitbox = (Rectangle) getHitbox().clone();
     }
 
-    public void move(int dx, int dy) {
+    public void translate(int dx, int dy) {
         trailingHitbox.setLocation(getPoint());
-        super.move(dx, dy);
+        super.translate(dx, dy);
+    }
+
+    public void setLocation(Point point) {
+        trailingHitbox.setLocation(point);
+        super.setLocation(point);
     }
 
     Rectangle getTrailingHitbox() {
