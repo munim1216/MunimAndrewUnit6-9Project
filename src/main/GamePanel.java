@@ -5,6 +5,7 @@ import level.TileManager;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -25,6 +26,9 @@ public class GamePanel extends JPanel implements Runnable {
     private Player player;
     // THE GAME TILES
     private TileManager tm;
+    // entity manager
+    private EntityManager manager;
+    private Stationary box;
     public GamePanel() {
         // setting up size of the panel
         this.setPreferredSize(new Dimension(tile_size * MAX_SCREEN_COL, tile_size * MAX_SCREEN_ROW));
@@ -40,13 +44,21 @@ public class GamePanel extends JPanel implements Runnable {
 
         tm = new TileManager();
         try { // TESTING
-            player = new Player(250, 250, "Munim", 0, 0, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1, keyH);
+            player = new Player(250, 250, "Munim", 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1, keyH);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        manager = new EntityManager();
+        try {
+            box = new Stationary(350, 400, "block", 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/blackbox.jpeg")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        manager.addEntity(box);
+        manager.addEntity(player);
         startGameThread();
         setUpWindow();
-
     }
 
     @Override
@@ -68,8 +80,9 @@ public class GamePanel extends JPanel implements Runnable {
             previousTime = currentTime;
             if (delta >= 1) {
                 // delta being 1 or greater means 1/60 of a second;
-                repaint();
                 player.processInput();
+                manager.dealWithCollisions(player);
+                repaint();
                 delta = 0;
             }
         }
@@ -83,7 +96,9 @@ public class GamePanel extends JPanel implements Runnable {
         tm.draw(g2D);
         // mouse handler test code
         g2D.drawLine(player.getPoint().x, player.getPoint().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
+        g2D.drawRect(player.getPoint().x, player.getPoint().y, player.getHitbox().width, player.getHitbox().height);
         player.draw(g2D);
+        box.draw(g2D);
     }
 
     private void setUpWindow() {

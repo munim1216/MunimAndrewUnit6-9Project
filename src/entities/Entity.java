@@ -2,7 +2,7 @@ package entities;
 
 import java.awt.*;
 
-public abstract class Entity {
+public class Entity {
     private Point point; // location of upper-left corner
     private String name; // name of the entity
     private Rectangle hitbox; // hitbox of entity
@@ -28,6 +28,7 @@ public abstract class Entity {
         point.setLocation(point);
         hitbox.setLocation(point);
     }
+
 
     public Point getPoint() {
         return point;

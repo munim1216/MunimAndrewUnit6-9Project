@@ -3,11 +3,17 @@ package entities;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 public class EntityManager {
     private ArrayList<Entity> entities;
 
     public EntityManager() {
         entities = new ArrayList<>();
+    }
+
+    public boolean addEntity(Entity entity) {
+        return entities.add(entity);
     }
 
     public boolean removeEntity(Entity entity) {
@@ -48,21 +54,21 @@ public class EntityManager {
 
         int xAxis;
         int yAxis;
-        if (trailingHitbox.x < otherHitbox.x) {
-            xAxis = otherHitbox.x;
+        if (trailingHitbox.x <= otherHitbox.x - trailingHitbox.width) {
+            xAxis = otherHitbox.x - trailingHitbox.width;
         } else {
             xAxis = otherHitbox.x + otherHitbox.width;
         }
-        if (trailingHitbox.y < otherHitbox.y) {
-            yAxis = otherHitbox.y;
+        if (trailingHitbox.y <= otherHitbox.y - trailingHitbox.height) {
+            yAxis = otherHitbox.y - trailingHitbox.height;
         } else {
-            yAxis = otherHitbox.y + otherHitbox.height;
+            yAxis = otherHitbox.y + trailingHitbox.height;
         }
 
         double xAxisT = (double) (xAxis - hitbox.x) / vx;
         double yAxisT = (double) (yAxis - hitbox.y) / vy;
 
-        if (xAxisT < yAxisT) {
+        if (abs(xAxisT) < abs(yAxisT)) {
             entity.translate((int) (xAxisT * vx), (int) (xAxisT * vy));
         } else {
             entity.translate((int) (yAxisT * vx), (int) (yAxisT * vy));

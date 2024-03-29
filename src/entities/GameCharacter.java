@@ -3,7 +3,7 @@ package entities;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GameCharacter extends Entity {
+public class GameCharacter extends Moveable {
     private BufferedImage[][] animations;
     private int currentSprite; // the column in the 2d array of animations
     private int typeOfSprite; // the row in the 2d array of animations, each row a different type of sprite

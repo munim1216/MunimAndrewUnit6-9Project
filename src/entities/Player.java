@@ -40,6 +40,6 @@ public class Player extends GameCharacter {
             incrementActionLockCounter();
         }
 
-        move(deltaX, deltaY);
+        translate(deltaX, deltaY);
     }
 }
