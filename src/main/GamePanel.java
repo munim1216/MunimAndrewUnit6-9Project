@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseListener(mouseH);
         this.setFocusable(true);
 
-        ui = new ChoiceBox(BaseUI.opaqueBlack ,Color.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
+        ui = new ChoiceBox(BaseUI.OPAQUE_BLACK, BaseUI.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
 
         tm = new TileManager();
         try { // TESTING

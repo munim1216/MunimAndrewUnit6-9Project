@@ -12,4 +12,8 @@ public class UIManager {
         currentUI = new ArrayList<>();
         this.mouseH = mouseH;
     }
+
+    void add(BaseUI ui) {
+        currentUI.add(ui);
+    }
 }

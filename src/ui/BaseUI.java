@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BaseUI {
+public abstract class BaseUI {
     protected static final Font CAVE_STORY;
 
     static {
@@ -17,16 +17,20 @@ public class BaseUI {
     }
 
     private ArrayList<Rectangle> clickable; // this array list will contain all the clickable areas for buttons and the like
+    private static UIManager uiM;
     protected static final int TEXT_SPACING = 35;
     public BaseUI(){
         clickable = new ArrayList<>();
+        uiM.add(this);
     }
-    public static final Color opaqueBlack = new Color(0,0,0,200);
+    public static final Color OPAQUE_BLACK = new Color(40,40,40,225);
+    public static final Color WHITE = new Color(255,247,228);
 
     protected ArrayList<Rectangle> getClickable() {
         return clickable;
     }
 
+    // todo add method in UIManager to call this so this can be protected instead
     public void drawBoxWithMessage(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor, String message) {
         // background rectangle
         g2D.setColor(backgroundColor);
@@ -41,6 +45,11 @@ public class BaseUI {
             g2D.drawString(line, x + 20, y);
         }
     }
+
+    public static void setUIManager(UIManager uiM) {
+        BaseUI.uiM = uiM;
+    }
+
 
     //protected void highlightArea(Graphics2D g2D, int x, int y, int witdh, int he)
 
