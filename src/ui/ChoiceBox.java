@@ -53,6 +53,14 @@ public class ChoiceBox extends BaseUI {
         rectangleIntRep.put(choice2Rect, 2);
     }
 
+    protected void updateMessage (String newMessage) {
+        message = newMessage;
+    }
+
+    protected void updateMessage (String newMessage, String choice1, String choice2) {
+        message = newMessage;
+        this.choices = choice1 + "\n" + choice2;
+    }
     @Override
     void draw(Graphics2D g2D) {
         g2D.setFont(CAVE_STORY);
@@ -86,6 +94,7 @@ public class ChoiceBox extends BaseUI {
     }
 
     protected void clickedBox1() {
+
     }
 
     protected void clickedBox2() {

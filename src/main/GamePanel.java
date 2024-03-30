@@ -11,6 +11,7 @@ import java.io.IOException;
 import entities.*;
 import ui.BaseUI;
 import ui.ChoiceBox;
+import ui.ExitGameBox;
 import ui.GameUIManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -47,7 +48,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         BaseUI.setUIManager(uiManager);
 
-        new ChoiceBox(BaseUI.OPAQUE_BLACK, BaseUI.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
+        // old test code below
+        //new ChoiceBox(BaseUI.OPAQUE_BLACK, BaseUI.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
+
+        new ExitGameBox();
 
         tm = new TileManager();
         try { // TESTING
