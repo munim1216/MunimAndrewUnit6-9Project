@@ -13,6 +13,8 @@ public class ChoiceBox extends BaseUI {
     private int width;
     private int height;
     private boolean hoveredOver;
+    private int finalText;
+    private int currentText;
     private Rectangle hoveredOverRect;
     private Color backgroundColor;
     private Color outlineColor;
@@ -20,10 +22,9 @@ public class ChoiceBox extends BaseUI {
     private String choices;
     private Rectangle choice1Rect;
     private Rectangle choice2Rect;
-
     private HashMap<Rectangle, Integer> rectangleIntRep;
 
-    public ChoiceBox(Color backgroundColor, Color outlineColor, String message, String choice1, String choice2) {
+    public ChoiceBox(Color backgroundColor, Color outlineColor, String message, String choice1, String choice2, int finalText) {
         // default size for a choice box
         x = GamePanel.TILE_SIZE / 2;
         y = GamePanel.TILE_SIZE / 2;
@@ -51,8 +52,14 @@ public class ChoiceBox extends BaseUI {
         rectangleIntRep = new HashMap<>();
         rectangleIntRep.put(choice1Rect, 1);
         rectangleIntRep.put(choice2Rect, 2);
-    }
 
+        // to allow for the code to change what is displayed
+        currentText = 1;
+        this.finalText = finalText;
+    }
+    protected int getFinalText() {
+        return finalText;
+    }
     protected void updateMessage (String newMessage) {
         message = newMessage;
     }

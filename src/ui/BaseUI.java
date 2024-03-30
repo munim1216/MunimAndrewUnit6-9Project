@@ -19,18 +19,25 @@ public abstract class BaseUI {
     private ArrayList<Rectangle> clickable; // this array list will contain all the clickable areas for buttons and the like
     private static GameUIManager uiManager;
     protected static final int TEXT_SPACING = 35;
-    public BaseUI(){
-        clickable = new ArrayList<>();
-        uiManager.add(this);
-    }
+
     public static final Color OPAQUE_BLACK = new Color(40,40,40,225);
     public static final Color HIGHLIGHT = new Color(74,84,87, 200);
     public static final Color WHITE = new Color(255,247,228);
-
+    protected boolean deleteNow;
+    public BaseUI(){
+        clickable = new ArrayList<>();
+        uiManager.add(this);
+        deleteNow = false;
+    }
     protected ArrayList<Rectangle> getClickable() {
         return clickable;
     }
-
+    public void removeSelf() {
+        deleteNow = true;
+    }
+    public boolean isDeleteNow() {
+        return deleteNow;
+    }
     void draw(Graphics2D g2D) {
 
     }
@@ -75,10 +82,5 @@ public abstract class BaseUI {
         BaseUI.uiManager = uiM;
     }
 
-
-    protected void highlightArea(Graphics2D g2D, Rectangle rect) {
-        g2D.setColor(HIGHLIGHT);
-        g2D.fillRoundRect(rect.x, rect.y, rect.width, rect.height, 25,25);
-    }
 
 }

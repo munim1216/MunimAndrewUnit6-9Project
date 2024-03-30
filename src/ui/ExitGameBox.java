@@ -5,16 +5,22 @@ public class ExitGameBox extends ChoiceBox {
     private static String choice1 = "Yes", choice2 = "No";
 
     public ExitGameBox() {
-        super(OPAQUE_BLACK, WHITE, message, choice1, choice2);
+        super(OPAQUE_BLACK, WHITE, message, choice1, choice2, 2);
     }
 
     @Override
     protected void clickedBox1() {
-        System.exit(0);
+        switch (getFinalText()) {
+            case 1 -> System.exit(0);
+            case 2 -> removeSelf();
+        }
     }
 
     @Override
     protected void clickedBox2() {
-        updateMessage("Thank you dude!");
+        switch (getFinalText()) {
+            case 1 -> updateMessage("Thank you dude! Do you want me to go?");
+            case 2 -> updateMessage("No? Well I'll be here until you click yes! Have fun!");
+        }
     }
 }

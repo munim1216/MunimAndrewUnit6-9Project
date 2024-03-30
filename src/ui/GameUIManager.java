@@ -25,15 +25,30 @@ public class GameUIManager {
     }
 
     public void processUI(){
-        for (BaseUI ui : currentUI) {
+        for (int i = 0; i < currentUI.size(); i++) {
+            BaseUI ui = currentUI.get(i);
+            if (ui.isDeleteNow()) {
+                currentUI.remove(i);
+                i--;
+                continue;
+            }
             for (Rectangle rect : ui.getClickable()) {
                 boolean hovering = rect.contains(mouseH.getMouseLocation());
-                boolean clicked = hovering && mouseH.isPressed();
+                boolean clicked = hovering && mouseH.isClicked();
                 ui.process(rect, hovering, clicked);
 
                 if (hovering) {
                     break;
                 }
+            }
+        }
+    }
+
+    public void remove(BaseUI ui) {
+        for (int i = 0; i < currentUI.size(); i++) {
+            if (ui == currentUI.get(i)) {
+                currentUI.remove(ui);
+                break;
             }
         }
     }
