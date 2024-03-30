@@ -24,6 +24,7 @@ public abstract class BaseUI {
         uiManager.add(this);
     }
     public static final Color OPAQUE_BLACK = new Color(40,40,40,225);
+    public static final Color HIGHLIGHT = new Color(74,84,87, 200);
     public static final Color WHITE = new Color(255,247,228);
 
     protected ArrayList<Rectangle> getClickable() {
@@ -34,10 +35,19 @@ public abstract class BaseUI {
 
     }
 
-    void process(Rectangle rect) {
+    void process(Rectangle rect, boolean hovering, boolean clicked) {
 
     }
-    protected void drawBoxWithMessage(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor, String message) {
+
+    void process() {
+
+    }
+
+    protected void processClick() {
+
+    }
+
+    protected void drawBox(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor) {
         // background rectangle
         g2D.setColor(backgroundColor);
         g2D.fillRoundRect(x, y, width, height, 25, 25);
@@ -45,7 +55,16 @@ public abstract class BaseUI {
         // outline of rectangle
         g2D.setColor(outlineColor);
         g2D.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25) ;
+    }
+    protected void drawBox(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor) {
+        // background rectangle
+        g2D.setColor(backgroundColor);
+        g2D.fillRoundRect(x, y, width, height, 25, 25);
+    }
 
+
+    protected void drawText(Graphics2D g2D, int x, int y, Color textColor, String message) {
+        g2D.setColor(textColor);
         for (String line : message.split("\n")) {
             y += TEXT_SPACING;
             g2D.drawString(line, x + 20, y);
@@ -57,6 +76,9 @@ public abstract class BaseUI {
     }
 
 
-    //protected void highlightArea(Graphics2D g2D, int x, int y, int witdh, int he)
+    protected void highlightArea(Graphics2D g2D, Rectangle rect) {
+        g2D.setColor(HIGHLIGHT);
+        g2D.fillRoundRect(rect.x, rect.y, rect.width, rect.height, 25,25);
+    }
 
 }

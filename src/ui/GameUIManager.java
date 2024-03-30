@@ -27,8 +27,12 @@ public class GameUIManager {
     public void processUI(){
         for (BaseUI ui : currentUI) {
             for (Rectangle rect : ui.getClickable()) {
-                if (rect.contains(mouseH.getMouseLocation())) {
-                    ui.process(rect);
+                boolean hovering = rect.contains(mouseH.getMouseLocation());
+                boolean clicked = hovering && mouseH.isPressed();
+                ui.process(rect, hovering, clicked);
+
+                if (hovering) {
+                    break;
                 }
             }
         }

@@ -1,7 +1,7 @@
 package ui;
 
 import main.GamePanel;
-import main.MouseHandler;
+
 import java.awt.*;
 import java.util.HashMap;
 
@@ -12,13 +12,16 @@ public class ChoiceBox extends BaseUI {
     private int y;
     private int width;
     private int height;
+    private boolean hoveredOver;
+    private Rectangle hoveredOverRect;
     private Color backgroundColor;
     private Color outlineColor;
     private String message;
     private String choices;
     private Rectangle choice1Rect;
     private Rectangle choice2Rect;
-    private HashMap<Rectangle, Integer> whichRectangleHighlighted;
+
+    private HashMap<Rectangle, Integer> rectangleIntRep;
 
     public ChoiceBox(Color backgroundColor, Color outlineColor, String message, String choice1, String choice2) {
         // default size for a choice box
@@ -45,29 +48,47 @@ public class ChoiceBox extends BaseUI {
         getClickable().add(choice1Rect);
         getClickable().add(choice2Rect);
 
-        whichRectangleHighlighted = new HashMap<>();
-        whichRectangleHighlighted.put(choice1Rect, 1);
-        whichRectangleHighlighted.put(choice2Rect, 2);
+        rectangleIntRep = new HashMap<>();
+        rectangleIntRep.put(choice1Rect, 1);
+        rectangleIntRep.put(choice2Rect, 2);
     }
 
     @Override
-    public void draw(Graphics2D g2D) {
+    void draw(Graphics2D g2D) {
         g2D.setFont(CAVE_STORY);
-        drawBoxWithMessage(g2D, x, y, width, height, backgroundColor, outlineColor, message);
-        drawBoxWithMessage(g2D, SELECTOR_BOX_X, SELECTOR_BOX_Y, SELECTOR_BOX_WIDTH, SELECTOR_BOX_HEIGHT, backgroundColor, outlineColor, choices);
-        g2D.setColor(Color.BLUE);
-        g2D.fillRect(choice1Rect.x, choice1Rect.y, choice1Rect.width, choice1Rect.height);
-        g2D.fillRect(choice2Rect.x, choice2Rect.y, choice2Rect.width, choice2Rect.height);
-        g2D.setColor(Color.WHITE);
+        drawBox(g2D, x, y, width, height, backgroundColor, outlineColor);
+        drawText(g2D, x, y, outlineColor, message);
+
+        drawBox(g2D, SELECTOR_BOX_X, SELECTOR_BOX_Y, SELECTOR_BOX_WIDTH, SELECTOR_BOX_HEIGHT, backgroundColor, outlineColor);
+
+        if (hoveredOver) {
+            drawBox(g2D, hoveredOverRect.x, hoveredOverRect.y, hoveredOverRect.width, hoveredOverRect.height, HIGHLIGHT);
+        }
+        drawText(g2D, SELECTOR_BOX_X, SELECTOR_BOX_Y, outlineColor, choices);
     }
 
     @Override
-    public void process(Rectangle rect) {
-        highlightArea(rect);
+    void process(Rectangle rect, boolean hovering, boolean clicked) {
+        hoveredOverRect = rect;
+        hoveredOver = hovering;
+        if (clicked) {
+            processClick();
+        }
     }
 
-    private void highlightArea(Rectangle highlighted) {
-        //todo finsh method
-        System.out.println("haha i am " + whichRectangleHighlighted.get(highlighted));
+    @Override
+    protected void processClick() {
+        switch (rectangleIntRep.get(hoveredOverRect)) {
+            case 1 -> clickedBox1();
+            case 2 -> clickedBox2();
+            default -> throw new RuntimeException("Unsupported Input");
+        }
+    }
+
+    protected void clickedBox1() {
+    }
+
+    protected void clickedBox2() {
+
     }
 }
