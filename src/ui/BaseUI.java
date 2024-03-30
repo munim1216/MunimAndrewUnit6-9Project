@@ -17,11 +17,11 @@ public abstract class BaseUI {
     }
 
     private ArrayList<Rectangle> clickable; // this array list will contain all the clickable areas for buttons and the like
-    private static UIManager uiM;
+    private static GameUIManager uiManager;
     protected static final int TEXT_SPACING = 35;
     public BaseUI(){
         clickable = new ArrayList<>();
-        uiM.add(this);
+        uiManager.add(this);
     }
     public static final Color OPAQUE_BLACK = new Color(40,40,40,225);
     public static final Color WHITE = new Color(255,247,228);
@@ -30,8 +30,14 @@ public abstract class BaseUI {
         return clickable;
     }
 
-    // todo add method in UIManager to call this so this can be protected instead
-    public void drawBoxWithMessage(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor, String message) {
+    void draw(Graphics2D g2D) {
+
+    }
+
+    void process(Rectangle rect) {
+
+    }
+    protected void drawBoxWithMessage(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor, String message) {
         // background rectangle
         g2D.setColor(backgroundColor);
         g2D.fillRoundRect(x, y, width, height, 25, 25);
@@ -46,8 +52,8 @@ public abstract class BaseUI {
         }
     }
 
-    public static void setUIManager(UIManager uiM) {
-        BaseUI.uiM = uiM;
+    public static void setUIManager(GameUIManager uiM) {
+        BaseUI.uiManager = uiM;
     }
 
 

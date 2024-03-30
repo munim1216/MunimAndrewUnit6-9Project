@@ -42,13 +42,16 @@ public class ChoiceBox extends BaseUI {
         // hitboxes for the buttons
         choice1Rect = new Rectangle(SELECTOR_BOX_X + 6,SELECTOR_BOX_Y + 10, SELECTOR_BOX_WIDTH - 10,(SELECTOR_BOX_HEIGHT - 10) / 3 + 5);
         choice2Rect = new Rectangle(SELECTOR_BOX_X + 6,(SELECTOR_BOX_Y + 10) + ((SELECTOR_BOX_HEIGHT - 10) / 3) + 10, SELECTOR_BOX_WIDTH - 10,(SELECTOR_BOX_HEIGHT - 10) / 3 + 5) ;
+        getClickable().add(choice1Rect);
+        getClickable().add(choice2Rect);
 
         whichRectangleHighlighted = new HashMap<>();
         whichRectangleHighlighted.put(choice1Rect, 1);
         whichRectangleHighlighted.put(choice2Rect, 2);
     }
 
-    public void drawChoiceBox(Graphics2D g2D) {
+    @Override
+    public void draw(Graphics2D g2D) {
         g2D.setFont(CAVE_STORY);
         drawBoxWithMessage(g2D, x, y, width, height, backgroundColor, outlineColor, message);
         drawBoxWithMessage(g2D, SELECTOR_BOX_X, SELECTOR_BOX_Y, SELECTOR_BOX_WIDTH, SELECTOR_BOX_HEIGHT, backgroundColor, outlineColor, choices);
@@ -56,6 +59,11 @@ public class ChoiceBox extends BaseUI {
         g2D.fillRect(choice1Rect.x, choice1Rect.y, choice1Rect.width, choice1Rect.height);
         g2D.fillRect(choice2Rect.x, choice2Rect.y, choice2Rect.width, choice2Rect.height);
         g2D.setColor(Color.WHITE);
+    }
+
+    @Override
+    public void process(Rectangle rect) {
+        highlightArea(rect);
     }
 
     private void highlightArea(Rectangle highlighted) {

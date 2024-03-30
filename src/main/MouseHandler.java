@@ -12,7 +12,7 @@ public class MouseHandler implements MouseListener {
     public MouseHandler(GamePanel gp) {
         this.gp = gp;
         lastPoint = new Point(0,0);
-        inScreen = true;
+        inScreen = false;
     }
     public boolean isPressed() {
         return pressed;
