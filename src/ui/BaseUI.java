@@ -23,6 +23,10 @@ public class BaseUI {
     }
     public static final Color opaqueBlack = new Color(0,0,0,200);
 
+    protected ArrayList<Rectangle> getClickable() {
+        return clickable;
+    }
+
     public void drawBoxWithMessage(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor, String message) {
         // background rectangle
         g2D.setColor(backgroundColor);
@@ -38,9 +42,6 @@ public class BaseUI {
         }
     }
 
-    protected ArrayList<Rectangle> getClickable() {
-        return clickable;
-    }
-    
+    //protected void highlightArea(Graphics2D g2D, int x, int y, int witdh, int he)
 
 }
