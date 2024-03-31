@@ -48,9 +48,8 @@ public class EntityManager {
         Rectangle trailingHitbox = entity.getTrailingHitbox();
         Rectangle otherHitbox = otherEntity.getHitbox();
 
-
-        int vx = trailingHitbox.x - hitbox.x;
-        int vy = trailingHitbox.y - hitbox.y;
+        int dx = trailingHitbox.x - hitbox.x;
+        int dy = trailingHitbox.y - hitbox.y;
 
         int xAxis;
         int yAxis;
@@ -65,13 +64,13 @@ public class EntityManager {
             yAxis = otherHitbox.y + trailingHitbox.height;
         }
 
-        double xAxisT = (double) (xAxis - hitbox.x) / vx;
-        double yAxisT = (double) (yAxis - hitbox.y) / vy;
+        double xAxisT = (double) (xAxis - hitbox.x) / dx;
+        double yAxisT = (double) (yAxis - hitbox.y) / dy;
 
-        if (abs(xAxisT) < abs(yAxisT)) {
-            entity.translate((int) (xAxisT * vx), (int) (xAxisT * vy));
+        if (abs(xAxisT) <= abs(yAxisT)) {
+            entity.setLocation(xAxis, hitbox.y);
         } else {
-            entity.translate((int) (yAxisT * vx), (int) (yAxisT * vy));
+            entity.setLocation(hitbox.x, yAxis);
         }
     }
 }
