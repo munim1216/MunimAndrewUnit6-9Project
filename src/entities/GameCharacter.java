@@ -3,7 +3,7 @@ package entities;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GameCharacter extends Entity {
+public class GameCharacter extends Moveable {
     private BufferedImage[][] animations;
     private int currentSprite; // the column in the 2d array of animations
     private int typeOfSprite; // the row in the 2d array of animations, each row a different type of sprite
@@ -17,8 +17,9 @@ public class GameCharacter extends Entity {
     private int deathAnimationCounter;
     private boolean isDeathAnimationOver;
     private Direction direction;
-    public GameCharacter(int worldX,
-                         int worldY,
+
+    public GameCharacter(int x,
+                         int y,
                          String name,
                          int rectangleX,
                          int rectangleY,
@@ -28,7 +29,7 @@ public class GameCharacter extends Entity {
                          int health,
                          int damage
     ) {
-        super(worldX, worldY, name, rectangleX, rectangleY, type);
+        super(x, y, name, rectangleX, rectangleY, type);
         this.speed = speed;
         this.animations = splitSpriteSheet(animations);
         this.health = health;
@@ -75,7 +76,7 @@ public class GameCharacter extends Entity {
             }
             actionLockCounter = 0;
         }
-        g2D.drawImage(animations[typeOfSprite][currentSprite], getWorldX(), getWorldY(), 48, 48, null);
+        g2D.drawImage(animations[typeOfSprite][currentSprite], getPoint().x, getPoint().y, 48, 48, null);
     }
 
     private BufferedImage[][] splitSpriteSheet(BufferedImage unsplit) {

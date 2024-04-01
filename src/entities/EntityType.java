@@ -1,5 +1,5 @@
 package entities;
 
 public enum EntityType {
-    PLAYER, MOB, NPC, WEAPON
+    PLAYER, MOB, WEAPON, STATIONARY, PROJECTILE
 }
