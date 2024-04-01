@@ -12,22 +12,21 @@ public class EntityManager {
         entities = new ArrayList<>();
     }
 
-    public boolean addEntity(Entity entity) {
-        return entities.add(entity);
+    public void add(Entity entity) {
+        entities.add(entity);
     }
 
-    public boolean removeEntity(Entity entity) {
+    public boolean remove(Entity entity) {
         return entities.remove(entity);
     }
 
-    public ArrayList<Entity> collidesWith(Entity entity) {
+    private ArrayList<Entity> collidesWith(Entity entity) {
         ArrayList<Entity> collidesWith = new ArrayList<>();
         for (Entity otherEntity : entities) {
             if (entity.collidesWith(otherEntity)) {
                 collidesWith.add(otherEntity);
             }
         }
-
         return collidesWith;
     }
 
@@ -43,25 +42,25 @@ public class EntityManager {
         }
     }
 
-    public void dealWithTwoCollisions(Moveable entity, Entity otherEntity) {
+    private void dealWithTwoCollisions(Moveable entity, Entity otherEntity) {
         Rectangle hitbox = entity.getHitbox();
-        Rectangle trailingHitbox = entity.getTrailingHitbox();
+        Rectangle lastHitbox = entity.getLastHitbox();
         Rectangle otherHitbox = otherEntity.getHitbox();
 
-        int dx = trailingHitbox.x - hitbox.x;
-        int dy = trailingHitbox.y - hitbox.y;
+        int dx = lastHitbox.x - hitbox.x;
+        int dy = lastHitbox.y - hitbox.y;
 
         int xAxis;
         int yAxis;
-        if (trailingHitbox.x <= otherHitbox.x - trailingHitbox.width) {
-            xAxis = otherHitbox.x - trailingHitbox.width;
+        if (lastHitbox.x <= otherHitbox.x - lastHitbox.width) {
+            xAxis = otherHitbox.x - lastHitbox.width;
         } else {
             xAxis = otherHitbox.x + otherHitbox.width;
         }
-        if (trailingHitbox.y <= otherHitbox.y - trailingHitbox.height) {
-            yAxis = otherHitbox.y - trailingHitbox.height;
+        if (lastHitbox.y <= otherHitbox.y - lastHitbox.height) {
+            yAxis = otherHitbox.y - lastHitbox.height;
         } else {
-            yAxis = otherHitbox.y + trailingHitbox.height;
+            yAxis = otherHitbox.y + lastHitbox.height;
         }
 
         double xAxisT = (double) (xAxis - hitbox.x) / dx;
@@ -71,6 +70,18 @@ public class EntityManager {
             entity.setLocation(xAxis, hitbox.y);
         } else {
             entity.setLocation(hitbox.x, yAxis);
+        }
+    }
+
+    public void draw(Graphics2D g2D) {
+        for (Entity entity : entities) {
+            entity.draw(g2D);
+        }
+    }
+
+    public void drawHitbox(Graphics2D g2D) {
+        for (Entity entity : entities) {
+            g2D.drawRect(entity.getX(), entity.getY(), entity.getHitbox().width, entity.getHitbox().height);
         }
     }
 }
