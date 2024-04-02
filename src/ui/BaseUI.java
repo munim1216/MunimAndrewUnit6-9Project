@@ -38,21 +38,13 @@ public abstract class BaseUI {
     public boolean isDeleteNow() {
         return deleteNow;
     }
-    void draw(Graphics2D g2D) {
+    abstract void draw(Graphics2D g2D);
 
-    }
+    abstract void process(SelectionBox rect, boolean hovering, boolean clicked);
 
-    void process(SelectionBox rect, boolean hovering, boolean clicked) {
+    abstract void process();
 
-    }
-
-    void process() {
-
-    }
-
-    protected void processClick() {
-
-    }
+    abstract void processClick();
 
     protected void drawBox(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor) {
         // background rectangle
