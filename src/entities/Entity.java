@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
+    private static EntityManager entityManager;
     private Point location; // location of upper-left corner
     private String name; // name of the entity
     private Rectangle hitbox; // hitbox of entity
@@ -18,6 +19,15 @@ public class Entity {
         spriteSize = new Dimension(spriteX, spriteY);
         this.TYPE = type;
         this.sprite = sprite;
+        entityManager.add(this);
+    }
+
+    public static void setEntityManager(EntityManager entityManager) {
+        Entity.entityManager = entityManager;
+    }
+
+    EntityManager getEntityManager() {
+        return entityManager;
     }
 
     public Rectangle getHitbox() {

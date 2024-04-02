@@ -16,11 +16,13 @@ public class Moveable extends Entity {
     public void translate(int dx, int dy) {
         lastHitbox.setLocation(getLocation());
         super.translate(dx, dy);
+        getEntityManager().dealWithCollisions(this);
     }
 
     public void setLocation(int x, int y) {
         lastHitbox.setLocation(getLocation());
         super.setLocation(x, y);
+        getEntityManager().dealWithCollisions(this);
     }
 
     public int getSpeed() {
