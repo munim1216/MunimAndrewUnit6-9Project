@@ -9,8 +9,10 @@ import java.io.File;
 import java.io.IOException;
 
 import entities.*;
+import ui.*;
+
 public class GamePanel extends JPanel implements Runnable {
-    public static int tile_size = 48; // default tile size is 48
+    public static final int TILE_SIZE = 48; // default tile size is 48
     private int scale; // plans to use this to allow for window resizing
 
     public static final int MAX_SCREEN_COL = 16; // used for how to draw tiles
@@ -23,13 +25,15 @@ public class GamePanel extends JPanel implements Runnable {
     private MouseHandler mouseH;
     // TEST VARIABLES
     private Player player;
+    private GameUIManager uiManager;
     // THE GAME TILES
     private TileManager tm;
     // entity manager
     private EntityManager em;
+  
     public GamePanel() {
         // setting up size of the panel
-        this.setPreferredSize(new Dimension(tile_size * MAX_SCREEN_COL, tile_size * MAX_SCREEN_ROW));
+        this.setPreferredSize(new Dimension(TILE_SIZE * MAX_SCREEN_COL, TILE_SIZE * MAX_SCREEN_ROW));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
 
@@ -39,6 +43,14 @@ public class GamePanel extends JPanel implements Runnable {
         mouseH = new MouseHandler(this);
         this.addMouseListener(mouseH);
         this.setFocusable(true);
+        uiManager = new GameUIManager(mouseH);
+
+        BaseUI.setUIManager(uiManager);
+
+        // old test code below
+        //new ChoiceBox(BaseUI.OPAQUE_BLACK, BaseUI.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
+
+        new ExitGameBox();
 
         tm = new TileManager();
         em = new EntityManager();
@@ -75,6 +87,8 @@ public class GamePanel extends JPanel implements Runnable {
             if (delta >= 1) {
                 // delta being 1 or greater means 1/60 of a second;
                 player.processInput();
+                uiManager.processUI();
+                em.dealWithCollisions(player);
                 repaint();
                 delta = 0;
             }
@@ -88,6 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
         g2D.drawLine(player.getLocation().x + player.getHitbox().width / 2, player.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
+        uiManager.drawUI(g2D);
         em.draw(g2D);
         em.drawHitbox(g2D);
         // mouse handler test code
