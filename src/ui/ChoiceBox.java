@@ -57,8 +57,8 @@ public class ChoiceBox extends BaseUI {
         currentText = 1;
         this.finalText = finalText;
     }
-    protected int getFinalText() {
-        return finalText;
+    protected int getCurrentText() {
+        return currentText;
     }
     protected void updateMessage (String newMessage) {
         message = newMessage;

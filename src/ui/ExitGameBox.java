@@ -10,7 +10,7 @@ public class ExitGameBox extends ChoiceBox {
 
     @Override
     protected void clickedBox1() {
-        switch (getFinalText()) {
+        switch (getCurrentText()) {
             case 1 -> System.exit(0);
             case 2 -> removeSelf();
         }
@@ -18,7 +18,7 @@ public class ExitGameBox extends ChoiceBox {
 
     @Override
     protected void clickedBox2() {
-        switch (getFinalText()) {
+        switch (getCurrentText()) {
             case 1 -> updateMessage("Thank you dude! Do you want me to go?");
             case 2 -> updateMessage("No? Well I'll be here until you click yes! Have fun!");
         }
