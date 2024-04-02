@@ -53,16 +53,12 @@ public class GamePanel extends JPanel implements Runnable {
         new ExitGameBox();
 
         tm = new TileManager();
+        em = new EntityManager();
+        Entity.setEntityManager(em);
+
         try { // TESTING
             player = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1, keyH);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        em = new EntityManager();
-        em.add(player);
-        try {
-            em.add(new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg"))));
+            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,11 +101,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
+        g2D.drawLine(player.getLocation().x + player.getHitbox().width / 2, player.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         uiManager.drawUI(g2D);
         em.draw(g2D);
         em.drawHitbox(g2D);
         // mouse handler test code
-        g2D.drawLine(player.getLocation().x + player.getSpriteWidth() / 2, player.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
     }
 
     private void setUpWindow() {
