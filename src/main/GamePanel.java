@@ -87,10 +87,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
+        g2D.drawLine(player.getLocation().x + player.getHitbox().width / 2, player.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         em.draw(g2D);
         em.drawHitbox(g2D);
         // mouse handler test code
-        g2D.drawLine(player.getLocation().x + player.getSpriteWidth() / 2, player.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
     }
 
     private void setUpWindow() {
