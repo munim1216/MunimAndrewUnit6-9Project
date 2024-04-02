@@ -38,6 +38,10 @@ public abstract class BaseUI {
     public boolean isDeleteNow() {
         return deleteNow;
     }
+    public static void setUIManager(GameUIManager uiM) {
+        BaseUI.uiManager = uiM;
+    }
+
     abstract void draw(Graphics2D g2D);
 
     abstract void process(SelectionBox rect, boolean hovering, boolean clicked);
@@ -69,10 +73,4 @@ public abstract class BaseUI {
             g2D.drawString(line, x + 20, y);
         }
     }
-
-    public static void setUIManager(GameUIManager uiM) {
-        BaseUI.uiManager = uiM;
-    }
-
-
 }
