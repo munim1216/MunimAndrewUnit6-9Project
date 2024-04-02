@@ -15,14 +15,13 @@ public class ChoiceBox extends BaseUI {
     private boolean hoveredOver;
     private int finalText;
     private int currentText;
-    private Rectangle hoveredOverRect;
+    private SelectionBox hoveredOverRect;
     private Color backgroundColor;
     private Color outlineColor;
     private String message;
     private String choices;
-    private Rectangle choice1Rect;
-    private Rectangle choice2Rect;
-    private HashMap<Rectangle, Integer> rectangleIntRep;
+    private SelectionBox choice1Rect;
+    private SelectionBox choice2Rect;
 
     public ChoiceBox(Color backgroundColor, Color outlineColor, String message, String choice1, String choice2, int finalText) {
         // default size for a choice box
@@ -44,14 +43,10 @@ public class ChoiceBox extends BaseUI {
         SELECTOR_BOX_Y = height + (GamePanel.TILE_SIZE / 5 * 3);
 
         // hitboxes for the buttons
-        choice1Rect = new Rectangle(SELECTOR_BOX_X + 6,SELECTOR_BOX_Y + 10, SELECTOR_BOX_WIDTH - 10,(SELECTOR_BOX_HEIGHT - 10) / 3 + 5);
-        choice2Rect = new Rectangle(SELECTOR_BOX_X + 6,(SELECTOR_BOX_Y + 10) + ((SELECTOR_BOX_HEIGHT - 10) / 3) + 10, SELECTOR_BOX_WIDTH - 10,(SELECTOR_BOX_HEIGHT - 10) / 3 + 5) ;
+        choice1Rect = new SelectionBox(SELECTOR_BOX_X + 6,SELECTOR_BOX_Y + 10, SELECTOR_BOX_WIDTH - 10,(SELECTOR_BOX_HEIGHT - 10) / 3 + 5, 1);
+        choice2Rect = new SelectionBox(SELECTOR_BOX_X + 6,(SELECTOR_BOX_Y + 10) + ((SELECTOR_BOX_HEIGHT - 10) / 3) + 10, SELECTOR_BOX_WIDTH - 10,(SELECTOR_BOX_HEIGHT - 10) / 3 + 5, 2) ;
         getClickable().add(choice1Rect);
         getClickable().add(choice2Rect);
-
-        rectangleIntRep = new HashMap<>();
-        rectangleIntRep.put(choice1Rect, 1);
-        rectangleIntRep.put(choice2Rect, 2);
 
         // to allow for the code to change what is displayed
         currentText = 1;
@@ -83,17 +78,17 @@ public class ChoiceBox extends BaseUI {
     }
 
     @Override
-    void process(Rectangle rect, boolean hovering, boolean clicked) {
+    void process(SelectionBox rect, boolean hovering, boolean clicked) {
         hoveredOverRect = rect;
         hoveredOver = hovering;
-        if (clicked) {
+        if (clicked && hovering) {
             processClick();
         }
     }
 
     @Override
     protected void processClick() {
-        switch (rectangleIntRep.get(hoveredOverRect)) {
+        switch (hoveredOverRect.intRep) {
             case 1 -> clickedBox1();
             case 2 -> clickedBox2();
             default -> throw new RuntimeException("Unsupported Input");
@@ -101,10 +96,16 @@ public class ChoiceBox extends BaseUI {
     }
 
     protected void clickedBox1() {
-
+        currentText++;
+        if (currentText > finalText) {
+            currentText--;
+        }
     }
 
     protected void clickedBox2() {
-
+        currentText++;
+        if (currentText > finalText) {
+            currentText--;
+        }
     }
 }

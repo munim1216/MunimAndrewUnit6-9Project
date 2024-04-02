@@ -16,7 +16,7 @@ public abstract class BaseUI {
         }
     }
 
-    private ArrayList<Rectangle> clickable; // this array list will contain all the clickable areas for buttons and the like
+    private ArrayList<SelectionBox> clickable; // this array list will contain all the clickable areas for buttons and the like
     private static GameUIManager uiManager;
     protected static final int TEXT_SPACING = 35;
 
@@ -29,7 +29,7 @@ public abstract class BaseUI {
         uiManager.add(this);
         deleteNow = false;
     }
-    protected ArrayList<Rectangle> getClickable() {
+    protected ArrayList<SelectionBox> getClickable() {
         return clickable;
     }
     public void removeSelf() {
@@ -42,7 +42,7 @@ public abstract class BaseUI {
 
     }
 
-    void process(Rectangle rect, boolean hovering, boolean clicked) {
+    void process(SelectionBox rect, boolean hovering, boolean clicked) {
 
     }
 
