@@ -87,6 +87,11 @@ public class ChoiceBox extends BaseUI {
     }
 
     @Override
+    void process() {
+        throw new RuntimeException("error, should not be called");
+    }
+
+    @Override
     protected void processClick() {
         switch (hoveredOverRect.intRep) {
             case 1 -> clickedBox1();

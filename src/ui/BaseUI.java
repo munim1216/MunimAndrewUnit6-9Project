@@ -15,14 +15,12 @@ public abstract class BaseUI {
             throw new RuntimeException(e);
         }
     }
-
-    private ArrayList<SelectionBox> clickable; // this array list will contain all the clickable areas for buttons and the like
     private static GameUIManager uiManager;
     protected static final int TEXT_SPACING = 35;
-
     public static final Color OPAQUE_BLACK = new Color(40,40,40,225);
     public static final Color HIGHLIGHT = new Color(74,84,87, 200);
     public static final Color WHITE = new Color(255,247,228);
+    private ArrayList<SelectionBox> clickable; // this array list will contain all the clickable areas for buttons and the like
     protected boolean deleteNow;
     public BaseUI(){
         clickable = new ArrayList<>();
@@ -38,10 +36,9 @@ public abstract class BaseUI {
     public boolean isDeleteNow() {
         return deleteNow;
     }
-    public static void setUIManager(GameUIManager uiM) {
-        BaseUI.uiManager = uiM;
+    public static void setUIManager(GameUIManager uiManager) {
+        BaseUI.uiManager = uiManager;
     }
-
     abstract void draw(Graphics2D g2D);
 
     abstract void process(SelectionBox rect, boolean hovering, boolean clicked);
