@@ -9,10 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import entities.*;
-import ui.BaseUI;
-import ui.ChoiceBox;
-import ui.ExitGameBox;
-import ui.GameUIManager;
+import ui.*;
 
 public class GamePanel extends JPanel implements Runnable {
     public static final int TILE_SIZE = 48; // default tile size is 48
