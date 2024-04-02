@@ -3,10 +3,19 @@ package entities;
 import java.awt.image.BufferedImage;
 import main.KeyHandler;
 
-public class Player extends GameCharacter {
+public class Player extends Character {
     private KeyHandler keyH;
-    public Player(int worldX, int worldY, String name, int rectangleX, int rectangleY, EntityType type, int speed, BufferedImage animations, int health, int damage, KeyHandler /* test parameter */ keyH) {
-        super(worldX, worldY, name, rectangleX, rectangleY, type, speed, animations, health, damage);
+    public Player(int x, int y,
+                  String name,
+                  int hitboxX, int hitboxY,
+                  int spriteX, int spriteY,
+                  EntityType type,
+                  int speed,
+                  BufferedImage animations,
+                  int health,
+                  int damage,
+                  KeyHandler /* test parameter */ keyH) {
+        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, speed, animations, health, damage);
         this.keyH = keyH;
     }
 
@@ -40,6 +49,6 @@ public class Player extends GameCharacter {
             incrementActionLockCounter();
         }
 
-        move(deltaX, deltaY);
+        translate(deltaX, deltaY);
     }
 }
