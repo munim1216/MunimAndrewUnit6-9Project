@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     private KeyHandler keyH;
     private MouseHandler mouseH;
     // TEST VARIABLES
-    private Player player;
+    private Player testPlayer;
     private Path2D.Double path2d;
     private GameUIManager uiManager;
     // THE GAME TILES
@@ -45,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         keyH = new KeyHandler();
         this.addKeyListener(keyH);
+        Player.setKeyH(keyH);
 
         mouseH = new MouseHandler(this);
         this.addMouseListener(mouseH);
@@ -54,9 +55,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         BaseUI.setUIManager(uiManager);
 
-        // old test code below
-        //new ChoiceBox(BaseUI.OPAQUE_BLACK, BaseUI.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
-
         new ExitGameBox();
 
         tm = new TileManager();
@@ -64,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
         Entity.setEntityManager(em);
 
         try { // TESTING
-            player = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1, keyH);
+            testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1);
             new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
             new Gun(0, 0, null, 0, 0, null, 0);
         } catch (IOException e) {
@@ -111,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
-        g2D.drawLine(player.getLocation().x + player.getHitbox().width / 2, player.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
+        g2D.drawLine(testPlayer.getLocation().x + testPlayer.getHitbox().width / 2, testPlayer.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         g2D.setColor(Color.YELLOW);
         g2D.drawLine(100, 100, 500, 500);
         uiManager.drawUI(g2D);

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import main.KeyHandler;
 
 public class Player extends Character implements Processable {
-    private KeyHandler keyH;
+    private static KeyHandler keyH;
     public Player(int x, int y,
                   String name,
                   int hitboxX, int hitboxY,
@@ -13,10 +13,12 @@ public class Player extends Character implements Processable {
                   int speed,
                   BufferedImage animations,
                   int health,
-                  int damage,
-                  KeyHandler /* test parameter */ keyH) {
+                  int damage) {
         super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, speed, animations, health, damage);
-        this.keyH = keyH;
+    }
+
+    public static void setKeyH(KeyHandler keyH) {
+        Player.keyH = keyH;
     }
 
     @Override
