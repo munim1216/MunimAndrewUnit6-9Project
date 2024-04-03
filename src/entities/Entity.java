@@ -71,4 +71,8 @@ public class Entity {
     public void draw(Graphics2D g2D) {
         g2D.drawImage(sprite, location.x, location.y, spriteSize.width, spriteSize.height, null);
     }
+
+    public void process() {
+
+    }
 }

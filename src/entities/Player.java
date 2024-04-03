@@ -19,6 +19,7 @@ public class Player extends Character implements Processable {
         this.keyH = keyH;
     }
 
+    @Override
     public void process() {
         int deltaX = 0;
         int deltaY = 0;
