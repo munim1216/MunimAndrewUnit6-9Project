@@ -3,7 +3,7 @@ package entities;
 import java.awt.image.BufferedImage;
 import main.KeyHandler;
 
-public class Player extends Character {
+public class Player extends Character implements Processable {
     private KeyHandler keyH;
     public Player(int x, int y,
                   String name,
@@ -19,7 +19,7 @@ public class Player extends Character {
         this.keyH = keyH;
     }
 
-    public void processInput() {
+    public void process() {
         int deltaX = 0;
         int deltaY = 0;
         if (keyH.isDKeyPressed()) {

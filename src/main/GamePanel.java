@@ -86,9 +86,8 @@ public class GamePanel extends JPanel implements Runnable {
             previousTime = currentTime;
             if (delta >= 1) {
                 // delta being 1 or greater means 1/60 of a second;
-                player.processInput();
+                em.process();
                 uiManager.processUI();
-                em.dealWithCollisions(player);
                 repaint();
                 delta = 0;
             }

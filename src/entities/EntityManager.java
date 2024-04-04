@@ -84,4 +84,12 @@ public class EntityManager {
             g2D.drawRect(entity.getX(), entity.getY(), entity.getHitbox().width, entity.getHitbox().height);
         }
     }
+
+    public void process() {
+        for (Entity entity : entities) {
+            if (entity instanceof Processable processable) {
+                processable.process();
+            }
+        }
+    }
 }
