@@ -5,6 +5,7 @@ import level.TileManager;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -25,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     private MouseHandler mouseH;
     // TEST VARIABLES
     private Player player;
+    private Path2D.Double path2d;
     private GameUIManager uiManager;
     // THE GAME TILES
     private TileManager tm;
@@ -36,6 +38,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(TILE_SIZE * MAX_SCREEN_COL, TILE_SIZE * MAX_SCREEN_ROW));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
+
+        path2d = new Path2D.Double();
+        path2d.moveTo(100,100);
+        path2d.lineTo(500,500);
 
         keyH = new KeyHandler();
         this.addKeyListener(keyH);
@@ -88,6 +94,9 @@ public class GamePanel extends JPanel implements Runnable {
                 // delta being 1 or greater means 1/60 of a second;
                 em.process();
                 uiManager.processUI();
+                if (path2d.intersects(player.getHitbox())) {
+                    System.out.println("Intersecrting");
+                }
                 repaint();
                 delta = 0;
             }
@@ -101,6 +110,8 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
         g2D.drawLine(player.getLocation().x + player.getHitbox().width / 2, player.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
+        g2D.setColor(Color.YELLOW);
+        g2D.drawLine(100, 100, 500, 500);
         uiManager.drawUI(g2D);
         em.draw(g2D);
         em.drawHitbox(g2D);
