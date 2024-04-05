@@ -7,10 +7,9 @@ import java.awt.image.BufferedImage;
 public class Gun extends Weapon {
     private int cooldown;
     private int cooldownCD;
-    private static MouseHandler mouseH;
 
-    public Gun(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, BufferedImage sprite, int damage, int cooldown) {
-        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, EntityType.WEAPON, sprite, damage, cooldown);
+    public Gun(String name, int hitboxX, int hitboxY, int spriteX, int spriteY, BufferedImage sprite, int damage, int cooldown) {
+        super(getPlayer().getX() + 20, getPlayer().getY() + 20, name, hitboxX, hitboxY, spriteX, spriteY, EntityType.WEAPON, sprite, damage, cooldown);
         cooldown = 0;
         cooldownCD = 60;
     }
@@ -18,7 +17,8 @@ public class Gun extends Weapon {
 
     @Override
     public void process() {
-        if (mouseH.isPressed()) {
+        super.process();
+        if (getMouseH().isPressed()) {
             if (cooldown == 0) {
                 cooldown = cooldownCD;
                 System.out.println("shoot!");
@@ -27,9 +27,5 @@ public class Gun extends Weapon {
                 cooldown--;
             }
         }
-    }
-
-    public static void setMouseH(MouseHandler mouseH) {
-        Gun.mouseH = mouseH;
     }
 }
