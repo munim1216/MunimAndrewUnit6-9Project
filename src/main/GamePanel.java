@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
         try { // TESTING
             testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1);
             new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
-            new Gun(0, 0, null, 0, 0, null, 0);
+            new Gun(0, 0, null, 0, 0, 0, 0, null,10, 10);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
                 // delta being 1 or greater means 1/60 of a second;
                 em.process();
                 uiManager.processUI();
-                if (path2d.intersects(player.getHitbox())) {
+                if (path2d.intersects(testPlayer.getHitbox())) {
                     System.out.println("Intersecrting");
                 }
                 repaint();
@@ -112,10 +112,9 @@ public class GamePanel extends JPanel implements Runnable {
         g2D.drawLine(testPlayer.getLocation().x + testPlayer.getHitbox().width / 2, testPlayer.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         g2D.setColor(Color.YELLOW);
         g2D.drawLine(100, 100, 500, 500);
-        uiManager.drawUI(g2D);
         em.draw(g2D);
         em.drawHitbox(g2D);
-        // mouse handler test code
+        uiManager.drawUI(g2D);
     }
 
     private void setUpWindow() {

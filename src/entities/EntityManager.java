@@ -79,12 +79,6 @@ public class EntityManager {
         }
     }
 
-    public void process() {
-        for (Entity entity : entities) {
-            entity.process();
-        }
-    }
-
     public void drawHitbox(Graphics2D g2D) {
         for (Entity entity : entities) {
             g2D.drawRect(entity.getX(), entity.getY(), entity.getHitbox().width, entity.getHitbox().height);
