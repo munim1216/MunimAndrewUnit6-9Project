@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     private MouseHandler mouseH;
     // TEST VARIABLES
     private Player testPlayer;
+    private Gun gun;
     private Path2D.Double path2d;
     private GameUIManager uiManager;
     // THE GAME TILES
@@ -66,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
             testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1);
             Weapon.setPlayer(testPlayer);
             new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
-            new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/treaszure!.jpg")),10, 10);
+            gun = new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/treaszure!.jpg")),10, 10);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,9 +112,15 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2D = (Graphics2D) g;
         tm.draw(g2D);
-        g2D.drawLine(testPlayer.getLocation().x + testPlayer.getHitbox().width / 2, testPlayer.getLocation().y + testPlayer.getHitbox().height / 2, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
+        //g2D.drawLine(testPlayer.getLocation().x + testPlayer.getHitbox().width / 2, testPlayer.getLocation().y + testPlayer.getHitbox().height / 2, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
         g2D.setColor(Color.YELLOW);
         g2D.drawLine(100, 100, 500, 500);
+        g2D.setColor(Color.BLACK);
+        g2D.drawLine(gun.mousePoint.x, gun.mousePoint.y, gun.playerPoint.x, gun.playerPoint.y);
+        g2D.setColor(Color.BLUE);
+        g2D.drawLine(gun.mousePoint.x, gun.mousePoint.y, gun.rightTriangle.x, gun.rightTriangle.y);
+        g2D.setColor(Color.RED);
+        g2D.drawLine(gun.playerPoint.x,gun.playerPoint.y,gun.rightTriangle.x,gun.rightTriangle.y);
         em.draw(g2D);
         em.drawHitbox(g2D);
         uiManager.drawUI(g2D);
