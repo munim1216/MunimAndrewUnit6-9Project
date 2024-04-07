@@ -66,8 +66,9 @@ public class GamePanel extends JPanel implements Runnable {
         try { // TESTING
             testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1);
             Weapon.setPlayer(testPlayer);
+            new Enemy(500, 500, null, 48, 48, 48, 48, EntityType.MOB, 10, ImageIO.read(new File("resources/characters/demon_eye_thing_sprite_sheet.png")), 100, 100);
             new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
-            gun = new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/gun_sprite_sheet.png")),10, 30);
+            gun = new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/gun_sprite_sheet.png")),10, 30, 36);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,6 +122,8 @@ public class GamePanel extends JPanel implements Runnable {
         g2D.drawLine(gun.mousePoint.x, gun.mousePoint.y, gun.rightTriangle.x, gun.rightTriangle.y);
         g2D.setColor(Color.RED);
         g2D.drawLine(gun.playerPoint.x,gun.playerPoint.y,gun.rightTriangle.x,gun.rightTriangle.y);
+        g2D.setColor(Color.YELLOW);
+        g2D.drawLine(gun.bulletPoint.x, gun.bulletPoint.y, gun.mousePoint.x, gun.mousePoint.y);
         em.draw(g2D);
         em.drawHitbox(g2D);
         uiManager.drawUI(g2D);

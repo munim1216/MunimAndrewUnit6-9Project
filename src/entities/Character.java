@@ -55,6 +55,10 @@ public class Character extends Moveable {
     public void incrementActionLockCounter() {
         actionLockCounter++;
     }
+    public void removeHealth(int healthLost) {
+        health -= healthLost;
+        System.out.println("I have lost " + healthLost + " and currently have " + health + " HP");
+    }
 
     public void draw(Graphics2D g2D) {
         switch (direction) {

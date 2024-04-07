@@ -43,6 +43,11 @@ public class EntityManager {
     }
 
     private void dealWithTwoCollisions(Moveable entity, Entity otherEntity) {
+        if (entity instanceof Projectile proj && otherEntity instanceof Character character) {
+            proj.hurt(character);
+            return;
+        }
+
         Rectangle hitbox = entity.getHitbox();
         Rectangle lastHitbox = entity.getLastHitbox();
         Rectangle otherHitbox = otherEntity.getHitbox();
