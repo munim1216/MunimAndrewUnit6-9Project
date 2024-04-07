@@ -86,20 +86,17 @@ public class Weapon extends Entity implements Processable {
         boolean below = false;
         boolean left = false;
 
+        rt2Mx = Math.abs(rightTriangle.x - mousePoint.x);
         if (rightTriangle.x > mousePoint.x) {
-            rt2Mx = rightTriangle.x - mousePoint.x;
             left = true;
             dir = Direction.RIGHT;
         } else if (rightTriangle.x < mousePoint.x) {
-            rt2Mx = mousePoint.x - rightTriangle.x;
             dir = Direction.LEFT;
         }
 
+        rt2Py = Math.abs(rightTriangle.y - playerPoint.y);
         if (rightTriangle.y > playerPoint.y) {
-            rt2Py = rightTriangle.y - playerPoint.y;
             below = true;
-        } else if (rightTriangle.y < playerPoint.y) {
-            rt2Py = playerPoint.y - rightTriangle.y;
         }
 
         angle = Math.toRadians(90) - Math.atan(rt2Mx / rt2Py);
