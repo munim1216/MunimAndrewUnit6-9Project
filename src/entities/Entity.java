@@ -63,6 +63,9 @@ public class Entity {
     public int getSpriteHeight() {
         return spriteSize.height;
     }
+    public BufferedImage getSprite() {
+        return sprite;
+    }
 
     boolean collidesWith(Entity otherEntity) {
         return this != otherEntity && hitbox.intersects(otherEntity.getHitbox());

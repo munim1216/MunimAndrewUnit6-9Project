@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
             testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1);
             Weapon.setPlayer(testPlayer);
             new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
-            gun = new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/treaszure!.jpg")),10, 10);
+            gun = new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/gun_sprite_sheet.png")),10, 30);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,7 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
                 em.process();
                 uiManager.processUI();
                 if (path2d.intersects(testPlayer.getHitbox())) {
-                    System.out.println("Intersecrting");
+                    //System.out.println("Intersecrting");
                 }
                 repaint();
                 delta = 0;

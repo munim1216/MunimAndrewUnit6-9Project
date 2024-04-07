@@ -13,6 +13,9 @@ public class Weapon extends Entity implements Processable {
     private int damage;
     private int cooldown;
     private int timeUntilResetCooldown;
+    private BufferedImage[][] animations;
+    private int spriteFrame; // the column in the 2d array of animations
+    private int typeOfSprite; // the row in the 2d array of animations, each row a different type of sprite
     private Direction dir;
     // THESE POINTS ARE ONLYT FOR TESTING PURPOSES PUBLIC TODO WHEN YOU'RE DONE FIX THEM
     public Point mousePoint = new Point(0,0);
@@ -20,12 +23,15 @@ public class Weapon extends Entity implements Processable {
     public Point rightTriangle = new Point(0,0);
     public double angle = 0.0;
 
-    public Weapon(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, BufferedImage sprite, int damage, int cooldown) {
-        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, sprite);
+    public Weapon(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, BufferedImage animations, int damage, int cooldown) {
+        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, null);
+        this.animations = Util.splitSpriteSheet(animations);
         this.damage = damage;
         this.cooldown = cooldown;
         timeUntilResetCooldown = 0;
-        dir = Direction.DOWN;
+        dir = Direction.LEFT;
+        spriteFrame = 0;
+        typeOfSprite = 0;
     }
 
     public static void setMouseH(MouseHandler mouseH) {
@@ -49,6 +55,25 @@ public class Weapon extends Entity implements Processable {
     @Override
     public void process() {
 
+        if (timeUntilResetCooldown >= cooldown - cooldown / 3) {
+            typeOfSprite = 1;
+        } else {
+            typeOfSprite = 0;
+        }
+
+        if (timeUntilResetCooldown > 0) {
+            timeUntilResetCooldown--;
+        }
+
+        if (mouseH.isPressed()) {
+            if (timeUntilResetCooldown == 0) {
+                timeUntilResetCooldown = cooldown;
+                System.out.println("shoot!");
+            } else {
+                System.out.println("cooling down!");
+            }
+        }
+
         mousePoint = mouseH.getMouseLocation();
         playerPoint = (Point) player.getLocation().clone();
         playerPoint.y += player.getSpriteHeight() / 2;
@@ -56,46 +81,51 @@ public class Weapon extends Entity implements Processable {
         rightTriangle = new Point(playerPoint.x, mousePoint.y);
 
         double rt2Mx = 0.0;
-        double rt2Px = 0.0;
+        double rt2Py = 0.0;
 
         boolean below = false;
-        boolean left = true;
+        boolean left = false;
 
-        if (mousePoint.x > rightTriangle.x) {
-            rt2Mx = mousePoint.x - rightTriangle.x;
-            left = false;
-        } else if (mousePoint.x < rightTriangle.x) {
+        if (rightTriangle.x > mousePoint.x) {
             rt2Mx = rightTriangle.x - mousePoint.x;
+            left = true;
+            dir = Direction.RIGHT;
+        } else if (rightTriangle.x < mousePoint.x) {
+            rt2Mx = mousePoint.x - rightTriangle.x;
+            dir = Direction.LEFT;
         }
 
-        if (playerPoint.y > rightTriangle.y) {
-            rt2Px = playerPoint.y - rightTriangle.y;
+        if (rightTriangle.y > playerPoint.y) {
+            rt2Py = rightTriangle.y - playerPoint.y;
             below = true;
-        } else if (playerPoint.y < rightTriangle.y) {
-            rt2Px = rightTriangle.y - playerPoint.y;
+        } else if (rightTriangle.y < playerPoint.y) {
+            rt2Py = playerPoint.y - rightTriangle.y;
         }
 
-        angle = Math.atan(rt2Mx / rt2Px) / 2;
-//
-//        if (left && below) {
-//            angle += Math.toRadians(180);
-//        } else if (below) {
-//            angle += Math.toRadians(360) - angle;
-//        } else if (left) {
-//            angle = Math.toRadians(180) - angle;
-//        }
+        angle = Math.toRadians(90) - Math.atan(rt2Mx / rt2Py);
 
-        System.out.println("This is the x value!:" + rt2Mx);
-        System.out.println("This is the y value!: " + rt2Px);
-        System.out.println("This is the angle value!: " + angle);
+        if (below && left) {
+            angle = Math.toRadians(180) + angle;
+        } else if (left) {
+            angle = Math.toRadians(180) - angle;
+        } else if (below) {
+            angle = Math.toRadians(360) - angle;
+        }
 
-        setLocation((int) (playerPoint.x + 12), (int) (playerPoint.y));
+        setLocation((playerPoint.x + 12), (playerPoint.y));
     }
 
     @Override
     public void draw(Graphics2D g2D) {
         g2D.rotate(-angle, playerPoint.getX(), playerPoint.getY());
-        super.draw(g2D);
+
+        BufferedImage currentFrame = animations[typeOfSprite][spriteFrame];
+
+        if (dir == Direction.LEFT) {
+            g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), getSpriteHeight(), null);
+        } else if (dir == Direction.RIGHT) {
+            g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), -getSpriteHeight(), null);
+        }
         g2D.rotate(angle, playerPoint.getX(), playerPoint.getY());
 
     }
