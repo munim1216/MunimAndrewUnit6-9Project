@@ -22,6 +22,6 @@ public class Gun extends Weapon {
             bulletPoint = new Point(playerPoint.x + (int) (length * Math.cos(getAngle())), playerPoint.y + (int) (length * Math.sin(getAngle())));
         }
 
-        new Bullet(bulletPoint,null, 10, 10, 48, 48, 5, getAngle());
+        new Bullet(bulletPoint,null, 10, 10, 48, 48, 20, getAngle());
     }
 }

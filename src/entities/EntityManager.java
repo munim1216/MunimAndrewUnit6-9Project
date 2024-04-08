@@ -82,21 +82,19 @@ public class EntityManager {
 
         int xAxis;
         int yAxis;
-        if (lastHitbox.x <= otherHitbox.x - lastHitbox.width) {
+        if (lastHitbox.x <= otherHitbox.x) {
             xAxis = otherHitbox.x - lastHitbox.width;
         } else {
             xAxis = otherHitbox.x + otherHitbox.width;
         }
-        if (lastHitbox.y <= otherHitbox.y - lastHitbox.height) {
+        if (lastHitbox.y <= otherHitbox.y) {
             yAxis = otherHitbox.y - lastHitbox.height;
         } else {
-            yAxis = otherHitbox.y + lastHitbox.height;
+            yAxis = otherHitbox.y + otherHitbox.height;
         }
 
         double xAxisT = (double) (xAxis - hitbox.x) / dx;
         double yAxisT = (double) (yAxis - hitbox.y) / dy;
-        System.out.println("x " + xAxisT);
-        System.out.println("y " + yAxisT);
 
         if (abs(xAxisT) <= abs(yAxisT)) {
             entity.setLocationDuringCollision(xAxis, hitbox.y);
