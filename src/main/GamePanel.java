@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
     // entity manager
     private EntityManager em;
     private GameState gameState;
-  
+
     public GamePanel() {
         // setting up size of the panel
         this.setPreferredSize(new Dimension(TILE_SIZE * MAX_SCREEN_COL, TILE_SIZE * MAX_SCREEN_ROW));
@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
             if (deltasSinceEnemy > 60 && gameState == GameState.PLAYING) {
                 deltasSinceEnemy = 0;
                 try {
-                    new Enemy(300, 300, null, 48, 48, 48, 48, EntityType.MOB, (int) (Math.random() * 10) + 6, ImageIO.read(new File("resources/characters/demon_eye_thing_sprite_sheet.png")), 100, 100);
+                    new Enemy(300, 300, null, 48, 48, 48, 48, EntityType.MOB, (int) (Math.random() * 10) + 6, new AnimatedSprite(ImageIO.read(new File("resources/characters/demon_eye_thing_sprite_sheet.png"))), 100, 100);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -146,14 +146,15 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGame() {
         try {
             gameState = GameState.PLAYING;
-            testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1);
+            testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, new AnimatedSprite(ImageIO.read(new File("resources/characters/renee_sprite_sheet.png"))),1,1);
             Weapon.setPlayer(testPlayer);
-            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
-            new Stationary(0, 0, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, null);
-            new Stationary(0, 48, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, null);
-            new Stationary(48, 48 * 11, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, null);
-            new Stationary(48 * 15, 0, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, null);
-            gun = new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/gun_sprite_sheet.png")),10, 30, 36);
+            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/treaszure!.jpg"))));
+            new Stationary(400, 450, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/treaszure!.jpg"))));
+            new Stationary(0, 0, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
+            new Stationary(0, 48, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
+            new Stationary(48, 48 * 11, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
+            new Stationary(48 * 15, 0, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
+            gun = new Gun(null, 0, 0, 48, 48, new AnimatedSprite(ImageIO.read(new File("resources/characters/gun_sprite_sheet.png"))),10, 30, 36);
         } catch (IOException e) {
             e.printStackTrace();
         }

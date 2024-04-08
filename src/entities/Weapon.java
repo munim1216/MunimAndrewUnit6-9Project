@@ -13,24 +13,20 @@ public class Weapon extends Entity implements Processable {
     private int damage;
     private int cooldown;
     private int timeUntilResetCooldown;
-    private BufferedImage[][] animations;
-    private int spriteFrame; // the column in the 2d array of animations
-    private int typeOfSprite; // the row in the 2d array of animations, each row a different type of sprite
+    private Sprite sprite;
     private Direction dir;
     private Point mousePoint;
     private Point playerPoint;
     private Point rightTriangle;
     private double angle;
 
-    public Weapon(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, BufferedImage animations, int damage, int cooldown) {
+    public Weapon(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, Sprite sprite, int damage, int cooldown) {
         super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, null);
-        this.animations = Util.splitSpriteSheet(animations);
+        this.sprite = sprite;
         this.damage = damage;
         this.cooldown = cooldown;
         timeUntilResetCooldown = 0;
         dir = Direction.LEFT;
-        spriteFrame = 0;
-        typeOfSprite = 0;
     }
 
     public static void setMouseH(MouseHandler mouseH) {
@@ -113,9 +109,9 @@ public class Weapon extends Entity implements Processable {
         setLocation((playerPoint.x + 12), (playerPoint.y));
 
         if (timeUntilResetCooldown >= cooldown - cooldown / 3) {
-            typeOfSprite = 1;
+            sprite.switchSpriteType(1);
         } else {
-            typeOfSprite = 0;
+            sprite.switchSpriteType(0);
         }
 
         if (timeUntilResetCooldown > 0) {
@@ -134,7 +130,7 @@ public class Weapon extends Entity implements Processable {
     public void draw(Graphics2D g2D) {
         g2D.rotate(angle, playerPoint.getX(), playerPoint.getY());
 
-        BufferedImage currentFrame = animations[typeOfSprite][spriteFrame];
+        BufferedImage currentFrame = sprite.currentSprite();
 
         if (dir == Direction.RIGHT) {
             g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), getSpriteHeight(), null);

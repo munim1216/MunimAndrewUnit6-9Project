@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Character extends Moveable {
-    private int spriteFrame; // the column in the 2d array of animations
+    private Sprite sprite;
     private int typeOfSprite; // the row in the 2d array of animations, each row a different type of sprite
     private int actionLockCounter;
     private int health;
@@ -23,16 +23,16 @@ public class Character extends Moveable {
                      int spriteX, int spriteY,
                      EntityType type,
                      int speed,
-                     BufferedImage animations,
+                     Sprite sprite,
                      int health,
                      int damage
     ) {
-        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, animations, speed);
+        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, sprite, speed);
+        this.sprite = sprite;
         this.health = health;
         this.damage = damage;
         direction = Direction.DOWN;
         lastDirection = direction;
-        spriteFrame = 0;
         typeOfSprite = 0;
         actionLockCounter = 0;
         iframes = 0;
@@ -53,6 +53,7 @@ public class Character extends Moveable {
     public void incrementActionLockCounter() {
         actionLockCounter++;
     }
+
     public void removeHealth(int healthLost) {
         health -= healthLost;
         System.out.println("I have lost " + healthLost + " and currently have " + health + " HP");
@@ -67,16 +68,15 @@ public class Character extends Moveable {
         }
         if (lastDirection != direction) {
             lastDirection = direction;
-            spriteFrame = 0;
+            sprite.switchSpriteType(typeOfSprite);
             actionLockCounter = 0;
         }
         if (actionLockCounter > 10) {
-            spriteFrame++;
-            spriteFrame %= getAnimations()[0].length;
+            sprite.nextSprite();
             actionLockCounter = 0;
         }
+        BufferedImage currentFrame = sprite.currentSprite();
 
-        BufferedImage currentFrame = getAnimations()[typeOfSprite][spriteFrame];
         g2D.drawImage(currentFrame, getX(), getY(), getSpriteWidth(), getSpriteHeight(), null);
     }
 }

@@ -1,6 +1,5 @@
 package entities;
 
-import java.awt.image.BufferedImage;
 import main.KeyHandler;
 
 public class Player extends Character implements Processable {
@@ -11,10 +10,10 @@ public class Player extends Character implements Processable {
                   int spriteX, int spriteY,
                   EntityType type,
                   int speed,
-                  BufferedImage animations,
+                  Sprite sprite,
                   int health,
                   int damage) {
-        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, speed, animations, health, damage);
+        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, speed, sprite, health, damage);
     }
 
     public static void setKeyH(KeyHandler keyH) {

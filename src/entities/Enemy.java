@@ -1,15 +1,14 @@
 package entities;
 
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Enemy extends Character implements Processable{
+public class Enemy extends Character implements Processable {
     private static Random random = new Random();
     private int actionLockCounterv2;
     private int currentAngle;
 
-    public Enemy(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, int speed, BufferedImage animations, int health, int damage) {
-        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, speed, animations, health, damage);
+    public Enemy(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, int speed, Sprite sprite, int health, int damage) {
+        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, speed, sprite, health, damage);
         actionLockCounterv2 = 0;
         currentAngle = 0;
     }

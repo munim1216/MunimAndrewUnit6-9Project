@@ -10,9 +10,9 @@ public class Entity {
     private Rectangle hitbox; // hitbox of entity
     private Dimension spriteSize;
     private final EntityType TYPE;
-    private BufferedImage sprite;
+    private Sprite sprite;
 
-    Entity(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, BufferedImage sprite) {
+    Entity(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, Sprite sprite) {
         this.location = new Point(x, y);
         this.name = name;
         hitbox = new Rectangle(x, y, hitboxX, hitboxY);
@@ -63,8 +63,9 @@ public class Entity {
     public int getSpriteHeight() {
         return spriteSize.height;
     }
+
     public BufferedImage getSprite() {
-        return sprite;
+        return sprite.currentSprite();
     }
 
     boolean collidesWith(Entity otherEntity) {
@@ -72,7 +73,7 @@ public class Entity {
     }
 
     public void draw(Graphics2D g2D) {
-        g2D.drawImage(sprite, location.x, location.y, spriteSize.width, spriteSize.height, null);
+        g2D.drawImage(sprite.currentSprite(), location.x, location.y, spriteSize.width, spriteSize.height, null);
     }
 
     public void process() {
