@@ -4,6 +4,7 @@ import main.KeyHandler;
 import main.MouseHandler;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Weapon extends Entity implements Processable {
@@ -22,6 +23,7 @@ public class Weapon extends Entity implements Processable {
     public Point playerPoint = new Point(0,0);
     public Point rightTriangle = new Point(0,0);
     public double angle = 0.0;
+    AffineTransform rotate = new AffineTransform();
 
     public Weapon(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, Sprite sprite, int damage, int cooldown) {
         super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, null);
@@ -114,16 +116,17 @@ public class Weapon extends Entity implements Processable {
 
     @Override
     public void draw(Graphics2D g2D) {
-        g2D.rotate(-angle, playerPoint.getX(), playerPoint.getY());
+        rotate.setToRotation(-angle, playerPoint.x, playerPoint.y);
+        AffineTransform composition = AffineTransform.getTranslateInstance(getX(), getY());
+        composition.preConcatenate(rotate);
+        BufferedImage currentFrame = sprite.currentSprite();
 
-        BufferedImage currentFrame = animations[typeOfSprite][spriteFrame];
-
-        if (dir == Direction.LEFT) {
-            g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), getSpriteHeight(), null);
-        } else if (dir == Direction.RIGHT) {
-            g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), -getSpriteHeight(), null);
-        }
-        g2D.rotate(angle, playerPoint.getX(), playerPoint.getY());
-
+//        if (dir == Direction.LEFT) {
+//            g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), getSpriteHeight(), null);
+//        } else if (dir == Direction.RIGHT) {
+//            g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), -getSpriteHeight(), null);
+//        }
+        g2D.drawImage(currentFrame, composition, null);
+        g2D.draw(rotate.createTransformedShape(getHitbox()));
     }
 }
