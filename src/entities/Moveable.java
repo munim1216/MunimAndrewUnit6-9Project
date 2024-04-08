@@ -47,5 +47,7 @@ public class Moveable extends Entity {
         getEntityManager().dealWithCollisions(this);
     }
 
-
+    void setLocationDuringCollision(int x, int y) {
+        super.setLocation(x, y);
+    }
 }
