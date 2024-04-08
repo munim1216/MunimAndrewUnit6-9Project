@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Character extends Moveable {
-    private BufferedImage[][] animations;
     private int spriteFrame; // the column in the 2d array of animations
     private int typeOfSprite; // the row in the 2d array of animations, each row a different type of sprite
     private int actionLockCounter;
@@ -28,8 +27,7 @@ public class Character extends Moveable {
                      int health,
                      int damage
     ) {
-        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, null, speed);
-        this.animations = Util.splitSpriteSheet(animations);
+        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, animations, speed);
         this.health = health;
         this.damage = damage;
         direction = Direction.DOWN;
@@ -74,11 +72,11 @@ public class Character extends Moveable {
         }
         if (actionLockCounter > 10) {
             spriteFrame++;
-            spriteFrame %= animations[0].length;
+            spriteFrame %= getAnimations()[0].length;
             actionLockCounter = 0;
         }
 
-        BufferedImage currentFrame = animations[typeOfSprite][spriteFrame];
+        BufferedImage currentFrame = getAnimations()[typeOfSprite][spriteFrame];
         g2D.drawImage(currentFrame, getX(), getY(), getSpriteWidth(), getSpriteHeight(), null);
     }
 }

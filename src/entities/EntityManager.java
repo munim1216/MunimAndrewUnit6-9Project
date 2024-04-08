@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.floor;
 
 public class EntityManager {
     private ArrayList<Entity> entities;
@@ -38,19 +39,45 @@ public class EntityManager {
         }
 
         for (Entity otherEntity : entitiesCollidedWith) {
+            if (entity instanceof Projectile proj) {
+                if (otherEntity instanceof Character character) {
+                    weaponCollision(character, proj);
+                } else if (otherEntity instanceof Stationary) {
+                    weaponCollision(proj);
+                }
+                return;
+            }
+
+            if (otherEntity instanceof Projectile) {
+                return;
+            }
+
             dealWithTwoCollisions(entity, otherEntity);
         }
     }
 
-    private void dealWithTwoCollisions(Moveable entity, Entity otherEntity) {
-        if (entity instanceof Projectile proj && otherEntity instanceof Character character) {
-            proj.hurt(character);
-            return;
-        }
+    private void weaponCollision(Character character, Projectile proj) {
+        proj.hurt(character);
+        proj.die();
+    }
 
+    private void weaponCollision(Projectile proj) {
+        proj.die();
+    }
+
+    private void dealWithTwoCollisions(Moveable entity, Entity otherEntity) {
         Rectangle hitbox = entity.getHitbox();
         Rectangle lastHitbox = entity.getLastHitbox();
         Rectangle otherHitbox = otherEntity.getHitbox();
+
+        if (entity instanceof Projectile) {
+            System.out.println("i messed up!");
+        }
+
+        if (otherEntity instanceof Projectile) {
+            System.out.println("I messed up 2x");
+        }
+
 
         int dx = lastHitbox.x - hitbox.x;
         int dy = lastHitbox.y - hitbox.y;
@@ -91,9 +118,17 @@ public class EntityManager {
     }
 
     public void process() {
-        for (Entity entity : entities) {
-            if (entity instanceof Processable processable) {
+        int lastEntity = entities.size();
+        for (int i = 0; i < lastEntity; i++) {
+            if (entities.get(i) instanceof Processable processable) {
                 processable.process();
+                if (entities.get(i) instanceof Moveable moveable) {
+                    if (moveable.isDead()) {
+                        remove(moveable);
+                        i--;
+                        lastEntity = entities.size();
+                    }
+                }
             }
         }
     }

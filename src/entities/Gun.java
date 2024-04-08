@@ -16,8 +16,12 @@ public class Gun extends Weapon {
 
     @Override
     public void attack() {
-        System.out.println("shoots!");
+        if (getDir() == Direction.RIGHT) {
+            bulletPoint = new Point(playerPoint.x + (int) (length * Math.cos(getAngle())), playerPoint.y + (int) (length * Math.sin(getAngle())));
+        } else if (getDir() == Direction.LEFT) {
+            bulletPoint = new Point(playerPoint.x - (int) (length * Math.cos(getAngle())), playerPoint.y - (int) (length * Math.sin(getAngle())));
+        }
 
-        bulletPoint = new Point(getLocation().x + (int) (length * Math.cos(getAngle())), getLocation().y + (int) (length * Math.sin(getAngle())));
+        new Bullet(bulletPoint,null, 25, 25, 48, 48, 5, getAngle());
     }
 }

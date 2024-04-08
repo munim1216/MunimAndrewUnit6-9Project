@@ -45,6 +45,10 @@ public class Weapon extends Entity implements Processable {
         Weapon.player = player;
     }
 
+    public Direction getDir() {
+        return dir;
+    }
+
     public static MouseHandler getMouseH() {
         return mouseH;
     }
@@ -74,9 +78,9 @@ public class Weapon extends Entity implements Processable {
         rt2Mx = Math.abs(rightTriangle.x - mousePoint.x);
         if (rightTriangle.x > mousePoint.x) {
             left = true;
-            dir = Direction.RIGHT;
-        } else if (rightTriangle.x < mousePoint.x) {
             dir = Direction.LEFT;
+        } else if (rightTriangle.x < mousePoint.x) {
+            dir = Direction.RIGHT;
         }
 
         rt2Py = Math.abs(rightTriangle.y - playerPoint.y);
@@ -112,8 +116,6 @@ public class Weapon extends Entity implements Processable {
             if (timeUntilResetCooldown == 0) {
                 timeUntilResetCooldown = cooldown;
                 attack();
-            } else {
-                System.out.println("cooling down!");
             }
         }
     }
@@ -124,9 +126,9 @@ public class Weapon extends Entity implements Processable {
 
         BufferedImage currentFrame = animations[typeOfSprite][spriteFrame];
 
-        if (dir == Direction.LEFT) {
+        if (dir == Direction.RIGHT) {
             g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), getSpriteHeight(), null);
-        } else if (dir == Direction.RIGHT) {
+        } else if (dir == Direction.LEFT) {
             g2D.drawImage(currentFrame, getLocation().x, getLocation().y, getSpriteWidth(), -getSpriteHeight(), null);
         }
         g2D.rotate(-angle, playerPoint.getX(), playerPoint.getY());
