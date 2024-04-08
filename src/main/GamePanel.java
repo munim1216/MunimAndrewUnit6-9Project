@@ -126,18 +126,16 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (gameState == GameState.PLAYING || gameState == GameState.UI) {
-            g2D.setColor(Color.YELLOW);
-            g2D.drawLine(100, 100, 500, 500);
-            g2D.setColor(Color.BLACK);
-            g2D.drawLine(gun.getMousePoint().x, gun.getMousePoint().y, gun.getPlayerPoint().x, gun.getPlayerPoint().y);
-            g2D.setColor(Color.BLUE);
-            g2D.drawLine(gun.getMousePoint().x, gun.getMousePoint().y, gun.getRightTriangle().x, gun.getRightTriangle().y);
-            g2D.setColor(Color.RED);
-            g2D.drawLine(gun.getPlayerPoint().x, gun.getPlayerPoint().y, gun.getRightTriangle().x, gun.getRightTriangle().y);
-            g2D.setColor(Color.YELLOW);
-            g2D.drawLine(gun.getBulletPoint().x, gun.getBulletPoint().y, gun.getMousePoint().x, gun.getMousePoint().y);
+//            g2D.setColor(Color.BLACK);
+//            g2D.drawLine(gun.getMousePoint().x, gun.getMousePoint().y, gun.getPlayerPoint().x, gun.getPlayerPoint().y);
+//            g2D.setColor(Color.BLUE);
+//            g2D.drawLine(gun.getMousePoint().x, gun.getMousePoint().y, gun.getRightTriangle().x, gun.getRightTriangle().y);
+//            g2D.setColor(Color.RED);
+//            g2D.drawLine(gun.getPlayerPoint().x, gun.getPlayerPoint().y, gun.getRightTriangle().x, gun.getRightTriangle().y);
+//            g2D.setColor(Color.YELLOW);
+//            g2D.drawLine(gun.getBulletPoint().x, gun.getBulletPoint().y, gun.getMousePoint().x, gun.getMousePoint().y);
+//            em.drawHitbox(g2D);
             em.draw(g2D);
-            em.drawHitbox(g2D);
         }
 
         if (gameState == GameState.UI || gameState == GameState.MAIN_MENU) {
