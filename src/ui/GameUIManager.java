@@ -18,6 +18,10 @@ public class GameUIManager {
         currentUI.add(ui);
     }
 
+    public boolean isCurrentUIEmpty() {
+        return currentUI.isEmpty();
+    }
+
     public void drawUI(Graphics2D g2D) {
         for (BaseUI ui : currentUI) {
             ui.draw(g2D);
