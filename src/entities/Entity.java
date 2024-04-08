@@ -63,9 +63,6 @@ public class Entity {
     public int getSpriteHeight() {
         return spriteSize.height;
     }
-    public BufferedImage getSprite() {
-        return sprite;
-    }
 
     public BufferedImage getSprite() {
         return sprite.currentSprite();

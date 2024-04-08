@@ -9,7 +9,6 @@ public class StaticSprite extends Sprite {
         this.sprite = sprite;
     }
 
-
     @Override
     BufferedImage currentSprite() {
         return sprite;

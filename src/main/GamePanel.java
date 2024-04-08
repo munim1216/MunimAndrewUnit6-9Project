@@ -149,11 +149,12 @@ public class GamePanel extends JPanel implements Runnable {
             testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, new AnimatedSprite(ImageIO.read(new File("resources/characters/renee_sprite_sheet.png"))),1,1);
             Weapon.setPlayer(testPlayer);
             new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/treaszure!.jpg"))));
-            new Stationary(0, 0, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, null);
-            new Stationary(0, 48, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, null);
-            new Stationary(48, 48 * 11, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, null);
-            new Stationary(48 * 15, 0, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, null);
-            gun = new Gun(null, 0, 0, 48, 48, new StaticSprite(ImageIO.read(new File("resources/characters/gun_sprite_sheet.png"))),10, 30, 36);
+            new Stationary(400, 450, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/treaszure!.jpg"))));
+            new Stationary(0, 0, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
+            new Stationary(0, 48, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
+            new Stationary(48, 48 * 11, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
+            new Stationary(48 * 15, 0, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
+            gun = new Gun(null, 0, 0, 48, 48, new AnimatedSprite(ImageIO.read(new File("resources/characters/gun_sprite_sheet.png"))),10, 30, 36);
         } catch (IOException e) {
             e.printStackTrace();
         }

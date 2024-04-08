@@ -8,18 +8,17 @@ import java.io.IOException;
 
 public class Bullet extends Projectile {
 
-    private static BufferedImage animations;
+    private static Sprite sprite;
 
     static {
         try {
-            animations = ImageIO.read(new File("resources/characters/bullet_sheet.png"));
+            sprite = new AnimatedSprite(ImageIO.read(new File("resources/characters/bullet_sheet.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-
     public Bullet(Point startingLocation, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, int speed, double angle) {
-        super(startingLocation, name, hitboxX, hitboxY, spriteX, spriteY, EntityType.PROJECTILE, speed, angle, animations);
+        super(startingLocation, name, hitboxX, hitboxY, spriteX, spriteY, EntityType.PROJECTILE, speed, angle, sprite);
     }
 }

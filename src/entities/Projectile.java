@@ -1,6 +1,8 @@
 package entities;
 
-public class Projectile extends Moveable implements Processable {public Projectile(Point startingLocation, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, int speed, double angle, Sprite sprite) {
+import java.awt.*;
+
+public class Projectile extends Moveable implements Processable {
     private Sprite sprite;
     private double angle;
     private double xSpeed;
@@ -8,8 +10,9 @@ public class Projectile extends Moveable implements Processable {public Projecti
     private double remainingX;
     private double remainingY;
 
-    public Projectile(Point startingLocation, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, int speed, double angle, BufferedImage animations) {
+    public Projectile(Point startingLocation, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, int speed, double angle, Sprite sprite) {
         super(startingLocation.x, startingLocation.y, name, hitboxX, hitboxY, spriteX, spriteY, type, sprite, speed);
+        this.sprite = sprite;
         this.angle = angle;
         xSpeed = speed * Math.cos(angle);
         ySpeed = speed * Math.sin(angle);

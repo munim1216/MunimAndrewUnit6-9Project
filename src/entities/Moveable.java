@@ -25,6 +25,7 @@ public class Moveable extends Entity {
     public boolean isDead() {
         return dead;
     }
+
     public void die() {
         dead = true;
     }
