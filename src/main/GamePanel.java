@@ -159,13 +159,6 @@ public class GamePanel extends JPanel implements Runnable {
             e.printStackTrace();
         }
     }
-
-    public void closeScreen() {
-        if (gameState != GameState.UI) {
-            new ExitGameBox();
-            gameState = GameState.UI;
-        }
-    }
     private void setUpWindow() {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

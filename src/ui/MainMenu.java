@@ -43,14 +43,15 @@ public class MainMenu extends BaseUI{
         String text = "Dragoon*s Defense";
 
         int textX = (GamePanel.MAX_SCREEN_COL * 48 / 2) - (((int) g2D.getFontMetrics().getStringBounds(text, g2D).getWidth()) / 2);
-        g2D.drawString(text, textX, 100);
+        drawText(g2D, textX, 100, WHITE, text);
 
-        g2D.drawImage(TITLE_IMAGE, ((GamePanel.MAX_SCREEN_COL * 48) - 256) / 2,150, 256, 256, null);
+        g2D.drawImage(TITLE_IMAGE, begin.x,150, 256, 256, null);
 
-        drawBox(g2D,((GamePanel.MAX_SCREEN_COL * 48) - 256) / 2, 425, 256, 100, BaseUI.OPAQUE_BLACK);
+        drawBox(g2D,begin.x, 425, 256, 100, BaseUI.OPAQUE_BLACK);
         if (hoveredOver) {
             drawBox(g2D, begin.x + 5, begin.y + 5, begin.width - 10, begin.height - 10, HIGHLIGHT);
         }
+        drawText(g2D,begin.x, begin.y + 35, WHITE, "BEGIN");
     }
 
     @Override
