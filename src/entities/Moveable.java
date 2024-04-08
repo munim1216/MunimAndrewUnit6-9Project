@@ -1,13 +1,12 @@
 package entities;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Moveable extends Entity {
     private int speed;
     private Rectangle lastHitbox;
 
-    public Moveable(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, BufferedImage sprite, int speed) {
+    public Moveable(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, Sprite sprite, int speed) {
         super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, sprite);
         this.speed = speed;
         lastHitbox = new Rectangle(getHitbox());

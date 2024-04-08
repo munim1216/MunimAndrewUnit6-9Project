@@ -13,7 +13,7 @@ public class Weapon extends Entity implements Processable {
     private int damage;
     private int cooldown;
     private int timeUntilResetCooldown;
-    private BufferedImage[][] animations;
+    private Sprite sprite;
     private int spriteFrame; // the column in the 2d array of animations
     private int typeOfSprite; // the row in the 2d array of animations, each row a different type of sprite
     private Direction dir;
@@ -23,9 +23,9 @@ public class Weapon extends Entity implements Processable {
     public Point rightTriangle = new Point(0,0);
     public double angle = 0.0;
 
-    public Weapon(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, BufferedImage animations, int damage, int cooldown) {
+    public Weapon(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, Sprite sprite, int damage, int cooldown) {
         super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, null);
-        this.animations = Util.splitSpriteSheet(animations);
+        this.sprite = sprite;
         this.damage = damage;
         this.cooldown = cooldown;
         timeUntilResetCooldown = 0;
@@ -56,9 +56,9 @@ public class Weapon extends Entity implements Processable {
     public void process() {
 
         if (timeUntilResetCooldown >= cooldown - cooldown / 3) {
-            typeOfSprite = 1;
+            sprite.switchSpriteType(1);
         } else {
-            typeOfSprite = 0;
+            sprite.switchSpriteType(0);
         }
 
         if (timeUntilResetCooldown > 0) {

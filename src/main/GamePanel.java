@@ -64,10 +64,10 @@ public class GamePanel extends JPanel implements Runnable {
         Entity.setEntityManager(em);
 
         try { // TESTING
-            testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1);
+            testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, new AnimatedSprite(ImageIO.read(new File("resources/characters/renee_sprite_sheet.png"))),1,1);
             Weapon.setPlayer(testPlayer);
-            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
-            gun = new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/gun_sprite_sheet.png")),10, 30);
+            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/treaszure!.jpg"))));
+            gun = new Gun(null, 0, 0, 48, 48, new AnimatedSprite(ImageIO.read(new File("resources/characters/gun_sprite_sheet.png"))),10, 30);
         } catch (IOException e) {
             e.printStackTrace();
         }
