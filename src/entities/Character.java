@@ -28,7 +28,7 @@ public class Character extends Moveable {
                      int health,
                      int damage
     ) {
-        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, null, speed);
+        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, sprite, speed);
         this.sprite = sprite;
         this.health = health;
         this.damage = damage;
@@ -54,6 +54,10 @@ public class Character extends Moveable {
 
     public void incrementActionLockCounter() {
         actionLockCounter++;
+    }
+    public void removeHealth(int healthLost) {
+        health -= healthLost;
+        System.out.println("I have lost " + healthLost + " and currently have " + health + " HP");
     }
 
     public void draw(Graphics2D g2D) {

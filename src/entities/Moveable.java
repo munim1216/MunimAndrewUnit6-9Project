@@ -5,11 +5,28 @@ import java.awt.*;
 public class Moveable extends Entity {
     private int speed;
     private Rectangle lastHitbox;
+    private boolean dead;
 
     public Moveable(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, Sprite sprite, int speed) {
         super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, sprite);
         this.speed = speed;
         lastHitbox = new Rectangle(getHitbox());
+        dead = false;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    Rectangle getLastHitbox() {
+        return lastHitbox;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+    public void die() {
+        dead = true;
     }
 
     public void translate(int dx, int dy) {
@@ -24,11 +41,7 @@ public class Moveable extends Entity {
         getEntityManager().dealWithCollisions(this);
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    Rectangle getLastHitbox() {
-        return lastHitbox;
+    void setLocationDuringCollision(int x, int y) {
+        super.setLocation(x, y);
     }
 }

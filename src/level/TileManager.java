@@ -1,5 +1,8 @@
 package level;
 
+import entities.EntityType;
+import entities.Stationary;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

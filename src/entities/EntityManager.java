@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.floor;
 
 public class EntityManager {
     private ArrayList<Entity> entities;
@@ -31,15 +32,36 @@ public class EntityManager {
     }
 
     public void dealWithCollisions(Moveable entity) {
-        ArrayList<Entity> entitiesCollidedWith = collidesWith(entity);
+        for (Entity otherEntity : entities) {
+            if (!entity.collidesWith(otherEntity)) {
+                continue;
+            }
+            if (entity instanceof Projectile proj) {
+                if (otherEntity instanceof Player) {
+                  continue;
+                } else if (otherEntity instanceof Character character) {
+                    weaponCollision(character, proj);
+                } else if (otherEntity instanceof Stationary) {
+                    weaponCollision(proj);
+                }
+                continue;
+            }
 
-        if (entitiesCollidedWith.isEmpty()) {
-            return;
-        }
+            if (otherEntity instanceof Projectile) {
+                continue;
+            }
 
-        for (Entity otherEntity : entitiesCollidedWith) {
             dealWithTwoCollisions(entity, otherEntity);
         }
+    }
+
+    private void weaponCollision(Character character, Projectile proj) {
+        proj.hurt(character);
+        proj.die();
+    }
+
+    private void weaponCollision(Projectile proj) {
+        proj.die();
     }
 
     private void dealWithTwoCollisions(Moveable entity, Entity otherEntity) {
@@ -47,29 +69,37 @@ public class EntityManager {
         Rectangle lastHitbox = entity.getLastHitbox();
         Rectangle otherHitbox = otherEntity.getHitbox();
 
+        if (entity instanceof Projectile) {
+            System.out.println("i messed up!");
+        }
+
+        if (otherEntity instanceof Projectile) {
+            System.out.println("I messed up 2x");
+        }
+
         int dx = lastHitbox.x - hitbox.x;
         int dy = lastHitbox.y - hitbox.y;
 
         int xAxis;
         int yAxis;
-        if (lastHitbox.x <= otherHitbox.x - lastHitbox.width) {
+        if (lastHitbox.x <= otherHitbox.x) {
             xAxis = otherHitbox.x - lastHitbox.width;
         } else {
             xAxis = otherHitbox.x + otherHitbox.width;
         }
-        if (lastHitbox.y <= otherHitbox.y - lastHitbox.height) {
+        if (lastHitbox.y <= otherHitbox.y) {
             yAxis = otherHitbox.y - lastHitbox.height;
         } else {
-            yAxis = otherHitbox.y + lastHitbox.height;
+            yAxis = otherHitbox.y + otherHitbox.height;
         }
 
         double xAxisT = (double) (xAxis - hitbox.x) / dx;
         double yAxisT = (double) (yAxis - hitbox.y) / dy;
 
         if (abs(xAxisT) <= abs(yAxisT)) {
-            entity.setLocation(xAxis, hitbox.y);
+            entity.setLocationDuringCollision(xAxis, hitbox.y);
         } else {
-            entity.setLocation(hitbox.x, yAxis);
+            entity.setLocationDuringCollision(hitbox.x, yAxis);
         }
     }
 
@@ -86,9 +116,17 @@ public class EntityManager {
     }
 
     public void process() {
-        for (Entity entity : entities) {
-            if (entity instanceof Processable processable) {
+        int lastEntity = entities.size();
+        for (int i = 0; i < lastEntity; i++) {
+            if (entities.get(i) instanceof Processable processable) {
                 processable.process();
+                if (entities.get(i) instanceof Moveable moveable) {
+                    if (moveable.isDead()) {
+                        remove(moveable);
+                        i--;
+                        lastEntity = entities.size();
+                    }
+                }
             }
         }
     }

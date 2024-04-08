@@ -63,6 +63,9 @@ public class Entity {
     public int getSpriteHeight() {
         return spriteSize.height;
     }
+    public BufferedImage getSprite() {
+        return sprite;
+    }
 
     public BufferedImage getSprite() {
         return sprite.currentSprite();
@@ -74,5 +77,9 @@ public class Entity {
 
     public void draw(Graphics2D g2D) {
         g2D.drawImage(sprite.currentSprite(), location.x, location.y, spriteSize.width, spriteSize.height, null);
+    }
+
+    public void process() {
+
     }
 }

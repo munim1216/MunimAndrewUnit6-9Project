@@ -1,8 +1,43 @@
 package entities;
 
-public class Projectile extends Moveable {
+public class Projectile extends Moveable implements Processable {public Projectile(Point startingLocation, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, int speed, double angle, Sprite sprite) {
+    private Sprite sprite;
+    private double angle;
+    private double xSpeed;
+    private double ySpeed;
+    private double remainingX;
+    private double remainingY;
 
-    public Projectile(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, Sprite sprite, int speed) {
-        super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, sprite, speed);
+    public Projectile(Point startingLocation, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, int speed, double angle, BufferedImage animations) {
+        super(startingLocation.x, startingLocation.y, name, hitboxX, hitboxY, spriteX, spriteY, type, sprite, speed);
+        this.angle = angle;
+        xSpeed = speed * Math.cos(angle);
+        ySpeed = speed * Math.sin(angle);
+        System.out.println(Math.toDegrees(angle));
+    }
+
+    public void hurt(Character c) {
+        c.die();
+    }
+
+    @Override
+    public void process() {
+        remainingX += xSpeed;
+        remainingY += ySpeed;
+
+        int dX = (int) remainingX;
+        int dY = (int) remainingY;
+
+        remainingX -= dX;
+        remainingY -= dY;
+
+        setLocation(getX() + dX, getY() + dY);
+    }
+
+    @Override
+    public void draw(Graphics2D g2D) {
+        g2D.rotate(angle, getX() + (double) getHitbox().width / 2, getY() + (double) getHitbox().height / 2);
+        g2D.drawImage(sprite.currentSprite(), getX(), getY(), getSpriteWidth(), getSpriteHeight(), null);
+        g2D.rotate(-angle, getX() + (double) getHitbox().width / 2, getY() + (double) getHitbox().height / 2);
     }
 }
