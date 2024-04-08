@@ -118,13 +118,13 @@ public class GamePanel extends JPanel implements Runnable {
         g2D.setColor(Color.YELLOW);
         g2D.drawLine(100, 100, 500, 500);
         g2D.setColor(Color.BLACK);
-        g2D.drawLine(gun.mousePoint.x, gun.mousePoint.y, gun.playerPoint.x, gun.playerPoint.y);
+        g2D.drawLine(gun.getMousePoint().x, gun.getMousePoint().y, gun.getPlayerPoint().x, gun.getPlayerPoint().y);
         g2D.setColor(Color.BLUE);
-        g2D.drawLine(gun.mousePoint.x, gun.mousePoint.y, gun.rightTriangle.x, gun.rightTriangle.y);
+        g2D.drawLine(gun.getMousePoint().x, gun.getMousePoint().y, gun.getRightTriangle().x, gun.getRightTriangle().y);
         g2D.setColor(Color.RED);
-        g2D.drawLine(gun.playerPoint.x,gun.playerPoint.y,gun.rightTriangle.x,gun.rightTriangle.y);
+        g2D.drawLine(gun.getPlayerPoint().x,gun.getPlayerPoint().y,gun.getRightTriangle().x,gun.getRightTriangle().y);
         g2D.setColor(Color.YELLOW);
-        g2D.drawLine(gun.bulletPoint.x, gun.bulletPoint.y, gun.mousePoint.x, gun.mousePoint.y);
+        g2D.drawLine(gun.getBulletPoint().x, gun.getBulletPoint().y, gun.getMousePoint().x, gun.getMousePoint().y);
         em.draw(g2D);
         em.drawHitbox(g2D);
         uiManager.drawUI(g2D);
