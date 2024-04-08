@@ -39,8 +39,11 @@ public class EntityManager {
         }
 
         for (Entity otherEntity : entitiesCollidedWith) {
+
             if (entity instanceof Projectile proj) {
-                if (otherEntity instanceof Character character) {
+                if (otherEntity instanceof Player) {
+                  return;
+                } else if (otherEntity instanceof Character character) {
                     weaponCollision(character, proj);
                 } else if (otherEntity instanceof Stationary) {
                     weaponCollision(proj);

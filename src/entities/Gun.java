@@ -19,7 +19,7 @@ public class Gun extends Weapon {
         if (getDir() == Direction.RIGHT) {
             bulletPoint = new Point(playerPoint.x + (int) (length * Math.cos(getAngle())), playerPoint.y + (int) (length * Math.sin(getAngle())));
         } else if (getDir() == Direction.LEFT) {
-            bulletPoint = new Point(playerPoint.x - (int) (length * Math.cos(getAngle())), playerPoint.y - (int) (length * Math.sin(getAngle())));
+            bulletPoint = new Point(playerPoint.x + (int) (length * Math.cos(getAngle())), playerPoint.y + (int) (length * Math.sin(getAngle())));
         }
 
         new Bullet(bulletPoint,null, 25, 25, 48, 48, 5, getAngle());

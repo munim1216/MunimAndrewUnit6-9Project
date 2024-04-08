@@ -16,10 +16,11 @@ public class Projectile extends Moveable implements Processable {
         this.angle = angle;
         xSpeed = speed * Math.cos(angle);
         ySpeed = speed * Math.sin(angle);
+        System.out.println(Math.toDegrees(angle));
     }
 
     public void hurt(Character c) {
-
+        c.die();
     }
     @Override
     public void process() {

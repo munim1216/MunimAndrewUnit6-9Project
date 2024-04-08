@@ -1,5 +1,8 @@
 package level;
 
+import entities.EntityType;
+import entities.Stationary;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -36,6 +39,15 @@ public class TileManager {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        for (int y = 0; y < currentMap.length; y++) {
+            for (int x = 0; x < currentMap[0].length; x++) {
+                TileType type = currentMap[y][x].TYPE_OF_TILE;
+                if (type == TileType.TREES1 || type == TileType.TREES2 || type == TileType.TREES3 || type == TileType.TREES4) {
+                    new Stationary(x * 48, y * 48, null, 48, 48, 48, 48, EntityType.STATIONARY, null);
+                }
+            }
         }
     }
 
