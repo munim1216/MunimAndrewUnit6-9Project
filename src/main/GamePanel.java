@@ -5,6 +5,7 @@ import level.TileManager;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,44 +25,44 @@ public class GamePanel extends JPanel implements Runnable {
     private KeyHandler keyH;
     private MouseHandler mouseH;
     // TEST VARIABLES
-    private Player player;
+    private Player testPlayer;
+    private Gun gun;
+    private Path2D.Double path2d;
     private GameUIManager uiManager;
     // THE GAME TILES
     private TileManager tm;
     // entity manager
     private EntityManager em;
+    private GameState gameState;
   
     public GamePanel() {
         // setting up size of the panel
         this.setPreferredSize(new Dimension(TILE_SIZE * MAX_SCREEN_COL, TILE_SIZE * MAX_SCREEN_ROW));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
+        this.setBackground(BaseUI.BEIGE);
+
+        gameState = GameState.MAIN_MENU;
 
         keyH = new KeyHandler();
         this.addKeyListener(keyH);
+        Player.setKeyH(keyH);
+        Weapon.setKeyH(keyH);
 
         mouseH = new MouseHandler(this);
         this.addMouseListener(mouseH);
         this.setFocusable(true);
         uiManager = new GameUIManager(mouseH);
+        Gun.setMouseH(mouseH);
 
         BaseUI.setUIManager(uiManager);
+        MainMenu.setGp(this);
+        new MainMenu();
 
-        // old test code below
-        //new ChoiceBox(BaseUI.OPAQUE_BLACK, BaseUI.WHITE,"Hello World!\nHow do you do!\nI hope you work!","yes","no");
-
-        new ExitGameBox();
-
-        tm = new TileManager();
         em = new EntityManager();
         Entity.setEntityManager(em);
 
-        try { // TESTING
-            player = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1, keyH);
-            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tm = new TileManager();
 
         startGameThread();
         setUpWindow();
@@ -75,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable {
         double delta = 0.0;
         int FPS = 60;
         double drawInterval = 1000000000.0 / FPS;
+        int deltasSinceEnemy = 0;
 
         while (gameThread != null) {
             // system.nanotime is java's very accurate clock or something (i dont 100% remember)
@@ -86,11 +88,30 @@ public class GamePanel extends JPanel implements Runnable {
             previousTime = currentTime;
             if (delta >= 1) {
                 // delta being 1 or greater means 1/60 of a second;
-                player.processInput();
-                uiManager.processUI();
-                em.dealWithCollisions(player);
+                if (gameState == GameState.PLAYING) {
+                    em.process();
+                    deltasSinceEnemy++;
+                    if (keyH.isEscKeyPressed()) {
+                        new ExitGameBox();
+                        gameState = GameState.UI;
+                    }
+                }
+                if (gameState == GameState.UI || gameState == GameState.MAIN_MENU) {
+                    uiManager.processUI();
+                    if (uiManager.isCurrentUIEmpty()) {
+                        gameState = GameState.PLAYING;
+                    }
+                }
                 repaint();
                 delta = 0;
+            }
+            if (deltasSinceEnemy > 60 && gameState == GameState.PLAYING) {
+                deltasSinceEnemy = 0;
+                try {
+                    new Enemy(300, 300, null, 48, 48, 48, 48, EntityType.MOB, (int) (Math.random() * 10) + 6, ImageIO.read(new File("resources/characters/demon_eye_thing_sprite_sheet.png")), 100, 100);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -100,14 +121,50 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2D = (Graphics2D) g;
-        tm.draw(g2D);
-        g2D.drawLine(player.getLocation().x + player.getHitbox().width / 2, player.getLocation().y, mouseH.getMouseLocation().x, mouseH.getMouseLocation().y);
-        uiManager.drawUI(g2D);
-        em.draw(g2D);
-        em.drawHitbox(g2D);
-        // mouse handler test code
+        if (gameState == GameState.UI || gameState == GameState.PLAYING) {
+            tm.draw(g2D);
+        }
+
+        if (gameState == GameState.PLAYING || gameState == GameState.UI) {
+//            g2D.setColor(Color.BLACK);
+//            g2D.drawLine(gun.getMousePoint().x, gun.getMousePoint().y, gun.getPlayerPoint().x, gun.getPlayerPoint().y);
+//            g2D.setColor(Color.BLUE);
+//            g2D.drawLine(gun.getMousePoint().x, gun.getMousePoint().y, gun.getRightTriangle().x, gun.getRightTriangle().y);
+//            g2D.setColor(Color.RED);
+//            g2D.drawLine(gun.getPlayerPoint().x, gun.getPlayerPoint().y, gun.getRightTriangle().x, gun.getRightTriangle().y);
+//            g2D.setColor(Color.YELLOW);
+//            g2D.drawLine(gun.getBulletPoint().x, gun.getBulletPoint().y, gun.getMousePoint().x, gun.getMousePoint().y);
+//            em.drawHitbox(g2D);
+            em.draw(g2D);
+        }
+
+        if (gameState == GameState.UI || gameState == GameState.MAIN_MENU) {
+            uiManager.drawUI(g2D);
+        }
     }
 
+    public void startGame() {
+        try {
+            gameState = GameState.PLAYING;
+            testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, ImageIO.read(new File("resources/characters/renee_sprite_sheet.png")),1,1);
+            Weapon.setPlayer(testPlayer);
+            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, ImageIO.read(new File("resources/characters/treaszure!.jpg")));
+            new Stationary(0, 0, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, null);
+            new Stationary(0, 48, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, null);
+            new Stationary(48, 48 * 11, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, null);
+            new Stationary(48 * 15, 0, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, null);
+            gun = new Gun(null, 0, 0, 48, 48, ImageIO.read(new File("resources/characters/gun_sprite_sheet.png")),10, 30, 36);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void closeScreen() {
+        if (gameState != GameState.UI) {
+            new ExitGameBox();
+            gameState = GameState.UI;
+        }
+    }
     private void setUpWindow() {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

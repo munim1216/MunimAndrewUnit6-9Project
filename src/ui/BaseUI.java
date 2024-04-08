@@ -1,5 +1,6 @@
 package ui;
 
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,7 @@ public abstract class BaseUI {
     public static final Color OPAQUE_BLACK = new Color(40,40,40,225);
     public static final Color HIGHLIGHT = new Color(74,84,87, 200);
     public static final Color WHITE = new Color(255,247,228);
+    public static final Color BEIGE = new Color(173, 167, 151);
     private ArrayList<SelectionBox> clickable; // this array list will contain all the clickable areas for buttons and the like
     protected boolean deleteNow;
     public BaseUI(){
