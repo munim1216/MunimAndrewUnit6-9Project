@@ -17,12 +17,10 @@ public class Weapon extends Entity implements Processable {
     private int spriteFrame; // the column in the 2d array of animations
     private int typeOfSprite; // the row in the 2d array of animations, each row a different type of sprite
     private Direction dir;
-    // THESE POINTS ARE ONLYT FOR TESTING PURPOSES PUBLIC TODO WHEN YOU'RE DONE FIX THEM
-    public Point mousePoint = new Point(0,0);
-    public Point playerPoint = new Point(0,0);
-    public Point rightTriangle = new Point(0,0);
-    public Point shootPoint = new Point(0,0);
-    public double angle = 0.0;
+    private Point mousePoint;
+    private Point playerPoint;
+    private Point rightTriangle;
+    private double angle;
 
     public Weapon(int x, int y, String name, int hitboxX, int hitboxY, int spriteX, int spriteY, EntityType type, BufferedImage animations, int damage, int cooldown) {
         super(x, y, name, hitboxX, hitboxY, spriteX, spriteY, type, null);
@@ -43,6 +41,18 @@ public class Weapon extends Entity implements Processable {
     }
     public static void setPlayer(Player player) {
         Weapon.player = player;
+    }
+
+    public Point getMousePoint() {
+        return mousePoint;
+    }
+
+    public Point getPlayerPoint() {
+        return playerPoint;
+    }
+
+    public Point getRightTriangle() {
+        return rightTriangle;
     }
 
     public Direction getDir() {

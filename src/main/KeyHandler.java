@@ -8,6 +8,7 @@ public class KeyHandler implements KeyListener {
     private boolean wKeyPressed, sKeyPressed, aKeyPressed, dKeyPressed; // movement keys
     private boolean fKeyPressed; // interact key
     private boolean upKeyPressed, downKeyPressed, leftKeyPressed, rightKeyPressed; // attack keys
+    private boolean escKeyPressed;
     public KeyHandler(){}
     public boolean isUpKeyPressed() {
         return upKeyPressed;
@@ -23,6 +24,10 @@ public class KeyHandler implements KeyListener {
 
     public boolean isRightKeyPressed() {
         return rightKeyPressed;
+    }
+
+    public boolean isEscKeyPressed() {
+        return escKeyPressed;
     }
 
     public boolean isWKeyPressed() {
@@ -67,6 +72,7 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_DOWN -> downKeyPressed = true;
             case KeyEvent.VK_LEFT -> leftKeyPressed = true;
             case KeyEvent.VK_RIGHT -> rightKeyPressed = true;
+            case KeyEvent.VK_ESCAPE ->  escKeyPressed = true;
         }
     }
 
@@ -84,6 +90,7 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_LEFT -> leftKeyPressed = false;
             case KeyEvent.VK_RIGHT -> rightKeyPressed = false;
             case KeyEvent.VK_F -> fKeyPressed = false;
+            case KeyEvent.VK_ESCAPE ->  escKeyPressed = false;
         }
     }
 }
