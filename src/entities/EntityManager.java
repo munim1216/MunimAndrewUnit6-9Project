@@ -32,27 +32,23 @@ public class EntityManager {
     }
 
     public void dealWithCollisions(Moveable entity) {
-        ArrayList<Entity> entitiesCollidedWith = collidesWith(entity);
-
-        if (entitiesCollidedWith.isEmpty()) {
-            return;
-        }
-
-        for (Entity otherEntity : entitiesCollidedWith) {
-
+        for (Entity otherEntity : entities) {
+            if (!entity.collidesWith(otherEntity)) {
+                continue;
+            }
             if (entity instanceof Projectile proj) {
                 if (otherEntity instanceof Player) {
-                  return;
+                  continue;
                 } else if (otherEntity instanceof Character character) {
                     weaponCollision(character, proj);
                 } else if (otherEntity instanceof Stationary) {
                     weaponCollision(proj);
                 }
-                return;
+                continue;
             }
 
             if (otherEntity instanceof Projectile) {
-                return;
+                continue;
             }
 
             dealWithTwoCollisions(entity, otherEntity);
@@ -81,7 +77,6 @@ public class EntityManager {
             System.out.println("I messed up 2x");
         }
 
-
         int dx = lastHitbox.x - hitbox.x;
         int dy = lastHitbox.y - hitbox.y;
 
@@ -100,11 +95,13 @@ public class EntityManager {
 
         double xAxisT = (double) (xAxis - hitbox.x) / dx;
         double yAxisT = (double) (yAxis - hitbox.y) / dy;
+        System.out.println("x " + xAxisT);
+        System.out.println("y " + yAxisT);
 
         if (abs(xAxisT) <= abs(yAxisT)) {
-            entity.setLocation(xAxis, hitbox.y);
+            entity.setLocationDuringCollision(xAxis, hitbox.y);
         } else {
-            entity.setLocation(hitbox.x, yAxis);
+            entity.setLocationDuringCollision(hitbox.x, yAxis);
         }
     }
 

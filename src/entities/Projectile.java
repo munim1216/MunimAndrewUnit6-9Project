@@ -22,6 +22,7 @@ public class Projectile extends Moveable implements Processable {
     public void hurt(Character c) {
         c.die();
     }
+
     @Override
     public void process() {
         remainingX += xSpeed;
@@ -38,8 +39,8 @@ public class Projectile extends Moveable implements Processable {
 
     @Override
     public void draw(Graphics2D g2D) {
-        g2D.rotate(angle, getX(), getY());
+        g2D.rotate(angle, getX() + (double) getHitbox().width / 2, getY() + (double) getHitbox().height / 2);
         g2D.drawImage(getAnimations()[0][0], getX(), getY(), getSpriteWidth(), getSpriteHeight(), null);
-        g2D.rotate(-angle, getX(), getY());
+        g2D.rotate(-angle, getX() + (double) getHitbox().width / 2, getY() + (double) getHitbox().height / 2);
     }
 }
