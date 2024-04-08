@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
     // entity manager
     private EntityManager em;
     private GameState gameState;
+    private int enemies;
 
     public GamePanel() {
         // setting up size of the panel
@@ -56,16 +57,20 @@ public class GamePanel extends JPanel implements Runnable {
         Gun.setMouseH(mouseH);
 
         BaseUI.setUIManager(uiManager);
-        MainMenu.setGp(this);
+        BaseUI.setGP(this);
         new MainMenu();
 
-        em = new EntityManager();
+        em = new EntityManager(this);
         Entity.setEntityManager(em);
 
         tm = new TileManager();
 
         startGameThread();
         setUpWindow();
+    }
+
+    public void decrementEnemies() {
+        enemies--;
     }
 
     @Override
@@ -90,6 +95,10 @@ public class GamePanel extends JPanel implements Runnable {
                 // delta being 1 or greater means 1/60 of a second;
                 if (gameState == GameState.PLAYING) {
                     em.process();
+                    if (enemies > 5) {
+                        gameState = GameState.UI;
+                        deathScreen();
+                    }
                     deltasSinceEnemy++;
                     if (keyH.isEscKeyPressed()) {
                         new ExitGameBox();
@@ -105,13 +114,15 @@ public class GamePanel extends JPanel implements Runnable {
                 repaint();
                 delta = 0;
             }
-            if (deltasSinceEnemy > 60 && gameState == GameState.PLAYING) {
+            if (deltasSinceEnemy > 90 && gameState == GameState.PLAYING) {
                 deltasSinceEnemy = 0;
                 try {
                     new Enemy(300, 300, null, 48, 48, 48, 48, EntityType.MOB, (int) (Math.random() * 10) + 6, new AnimatedSprite(ImageIO.read(new File("resources/characters/demon_eye_thing_sprite_sheet.png"))), 100, 100);
+                    enemies++;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                System.out.println(enemies);
             }
         }
     }
@@ -148,8 +159,15 @@ public class GamePanel extends JPanel implements Runnable {
             gameState = GameState.PLAYING;
             testPlayer = new Player(250, 250, "Andrenee", 24, 48, 48, 48, EntityType.PLAYER, 2, new AnimatedSprite(ImageIO.read(new File("resources/characters/renee_sprite_sheet.png"))),1,1);
             Weapon.setPlayer(testPlayer);
-            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/treaszure!.jpg"))));
-            new Stationary(400, 450, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/treaszure!.jpg"))));
+            new Stationary(400, 400, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/wall.png"))));
+            new Stationary(400, 450, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/wall.png"))));
+            new Stationary(100, 250, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/wall.png"))));
+            new Stationary(100, 300, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/wall.png"))));
+            new Stationary(100, 200, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/wall.png"))));
+            new Stationary(500, 100, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/wall.png"))));
+            new Stationary(550, 100, "block", 48, 48, 48, 48, EntityType.STATIONARY, new StaticSprite(ImageIO.read(new File("resources/characters/wall.png"))));
+
+
             new Stationary(0, 0, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
             new Stationary(0, 48, "tree", 48, 48 * 11, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
             new Stationary(48, 48 * 11, "tree", 48 * 15, 48, 0, 0, EntityType.STATIONARY, new StaticSprite(null));
@@ -159,6 +177,13 @@ public class GamePanel extends JPanel implements Runnable {
             e.printStackTrace();
         }
     }
+
+    public void restartGame() {
+        em.purge();
+        enemies = 0;
+        startGame();
+    }
+
     private void setUpWindow() {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -172,5 +197,9 @@ public class GamePanel extends JPanel implements Runnable {
     private void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    private void deathScreen() {
+        new GameLossBox();
     }
 }

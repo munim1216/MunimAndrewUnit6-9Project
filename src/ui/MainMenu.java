@@ -12,8 +12,6 @@ public class MainMenu extends BaseUI{
 
     private static final BufferedImage TITLE_IMAGE;
 
-    private static GamePanel gp;
-
     static {
         try {
             TITLE_IMAGE = ImageIO.read(new File("resources/characters/title_image.png"));
@@ -31,9 +29,6 @@ public class MainMenu extends BaseUI{
         hoveredOver = false;
     }
 
-    public static void setGp(GamePanel gp) {
-        MainMenu.gp = gp;
-    }
 
     @Override
     void draw(Graphics2D g2D) {
@@ -69,7 +64,7 @@ public class MainMenu extends BaseUI{
 
     @Override
     void processClick() {
-        gp.startGame();
+        getGP().startGame();
         removeSelf();
     }
 }

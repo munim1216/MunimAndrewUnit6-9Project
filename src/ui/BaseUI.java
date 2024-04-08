@@ -1,6 +1,7 @@
 package ui;
 
-import javax.swing.plaf.ColorUIResource;
+import main.GamePanel;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,7 @@ public abstract class BaseUI {
         }
     }
     private static GameUIManager uiManager;
+    private static GamePanel gp;
     protected static final int TEXT_SPACING = 35;
     public static final Color OPAQUE_BLACK = new Color(40,40,40,225);
     public static final Color HIGHLIGHT = new Color(74,84,87, 200);
@@ -48,6 +50,14 @@ public abstract class BaseUI {
     abstract void process();
 
     abstract void processClick();
+
+    public static void setGP(GamePanel gp) {
+        BaseUI.gp = gp;
+    }
+
+    public static GamePanel getGP() {
+        return gp;
+    }
 
     protected void drawBox(Graphics2D g2D, int x, int y, int width, int height, Color backgroundColor, Color outlineColor) {
         // background rectangle

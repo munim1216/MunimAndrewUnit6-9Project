@@ -1,5 +1,8 @@
 package entities;
 
+import main.GamePanel;
+import main.GameState;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -8,9 +11,11 @@ import static java.lang.Math.floor;
 
 public class EntityManager {
     private ArrayList<Entity> entities;
+    private GamePanel gp;
 
-    public EntityManager() {
+    public EntityManager(GamePanel gp) {
         entities = new ArrayList<>();
+        this.gp = gp;
     }
 
     public void add(Entity entity) {
@@ -58,6 +63,7 @@ public class EntityManager {
     private void weaponCollision(Character character, Projectile proj) {
         proj.hurt(character);
         proj.die();
+        gp.decrementEnemies();
     }
 
     private void weaponCollision(Projectile proj) {
@@ -129,5 +135,9 @@ public class EntityManager {
                 }
             }
         }
+    }
+
+    public void purge() {
+        entities = new ArrayList<>();
     }
 }
